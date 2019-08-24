@@ -7,44 +7,56 @@
     android:orientation="vertical"
     android:padding="10dp">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="377dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="52dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/linebetter" />
+
     <TextView
         android:id="@+id/gameName"
-        android:layout_width="226dp"
+        android:layout_width="279dp"
         android:layout_height="wrap_content"
 
-        android:layout_marginStart="96dp"
-        android:layout_marginLeft="96dp"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/cyberjunkies1"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/caravan"
         android:text="Title"
         android:textColor="@color/common_google_signin_btn_text_dark_pressed"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/genreName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginLeft="176dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/cyberjunkies2"
+        android:layout_width="91dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/neolatina"
         android:text="Genre"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gameName" />
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/gameName" />
 
     <ImageView
         android:id="@+id/gameImage"
-        android:layout_width="371dp"
-        android:layout_height="149dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="88dp"
+        android:layout_width="374dp"
+        android:layout_height="135dp"
+        android:layout_marginTop="8dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.702"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars[0]" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:srcCompat="@drawable/xcomenemyunkown" />
 
 </android.support.constraint.ConstraintLayout>
