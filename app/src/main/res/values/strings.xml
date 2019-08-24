@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">GameIntel</string>
+    <string name="loginText">Login</string>
+    <string name="hint">Email</string>
+    <string name="hint2">Password</string>
+    <string name="welcome_userPage">Welcome</string>
+    <string name="registerHead">Register</string>
+    <string name="registerButton">Register</string>
+    <string name="Name">Name</string>
+    <string name="email">Email</string>
+    <string name="registerAge">Age</string>
+    <string name="registerBirthDate">Birth Date</string>
+    <string name="registerPassword">Password</string>
+    <string name="submitButton">Submit</string>
+    <string name="regiserSetDateButton">Set Birth Date</string>
+    <string name="registerNoteVerifyEmail">Note: after registration, a mail will be sent to your email address to verify your email. please note that you must verify your email in order to log in to your account</string>
+    <string name="loginResendVerifyMail">Send Verification Mail</string>
+    <string name="registerUserName">User Name</string>
+    <string name="userResetPass">Forgot My Password</string>
+
+
+</resources>

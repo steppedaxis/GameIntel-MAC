@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "258155614846",
+    "firebase_url": "https://gameinteldb.firebaseio.com",
+    "project_id": "gameinteldb",
+    "storage_bucket": "gameinteldb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:258155614846:android:16ad874d79980ef0",
+        "android_client_info": {
+          "package_name": "com.example.firebasedbconnection"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "258155614846-n34t523dgph3ch6f00pdf0cqndnp0476.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZY7g9RXYh7rM2_rGYhw8leIpkTtzlem0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "258155614846-n34t523dgph3ch6f00pdf0cqndnp0476.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:258155614846:android:ba6871d2775352f1",
+        "android_client_info": {
+          "package_name": "com.example.gameintel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "258155614846-n34t523dgph3ch6f00pdf0cqndnp0476.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZY7g9RXYh7rM2_rGYhw8leIpkTtzlem0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "258155614846-n34t523dgph3ch6f00pdf0cqndnp0476.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
