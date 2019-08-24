@@ -36,7 +36,6 @@ public class RegisterPage extends AppCompatActivity {
     public static final String userPrefs="userDetails";
     public static final String USER_NAME_KEY = "username";
     public static final String NAME_KEY = "name";
-    public static final String AGE_KEY = "age";
     public static final String BIRTH_DATE_KEY = "birthdate";
 
 
@@ -45,7 +44,6 @@ public class RegisterPage extends AppCompatActivity {
     private EditText mNameView;
     private EditText mPasswordView;
     private EditText mEmailView;
-    private EditText mAgeView;
     private TextView mBirthDateView;
     private Button dateButton;
     int Year;
@@ -70,7 +68,6 @@ public class RegisterPage extends AppCompatActivity {
         mNameView=findViewById(R.id.registerName);
         mPasswordView=findViewById(R.id.registerPassword);
         mEmailView=findViewById(R.id.registerEmail);
-        mAgeView=findViewById(R.id.registerAge);
         mBirthDateView=findViewById(R.id.registerBirthDate);
 
         mAuth=FirebaseAuth.getInstance();
@@ -111,7 +108,6 @@ public class RegisterPage extends AppCompatActivity {
         String password = mPasswordView.getText().toString();
         String UserName=mUserNameView.getText().toString();
         String Name=mNameView.getText().toString();
-        String Age=mAgeView.getText().toString();
         String BirthYear=mBirthDateView.getText().toString();
 
         //cancel var will be set as true only if one of the following "if" blocks will set it as true
@@ -148,13 +144,6 @@ public class RegisterPage extends AppCompatActivity {
         if (TextUtils.isEmpty(Name)){
             mNameView.setError("Name empty");
             focusView = mNameView;
-            cancel = true;
-        }
-
-        // Check if the user has not entered his age.
-        if (TextUtils.isEmpty(Age)){
-            mAgeView.setError("Age empty");
-            focusView = mAgeView;
             cancel = true;
         }
 
@@ -295,8 +284,9 @@ public class RegisterPage extends AppCompatActivity {
         String password = mPasswordView.getText().toString();
         String userName=mUserNameView.getText().toString();
         String Name=mNameView.getText().toString();
-        int Age=Integer.parseInt(mAgeView.getText().toString());
+        //int Age=Integer.parseInt(mAgeView.getText().toString());
         String BirthYear=mBirthDateView.getText().toString();
+        int Age=AgeCalculator(BirthYear);
         User userdetails=new User(userName,Name,email,Age,BirthYear);
 
 // Add a new document with a generated ID
@@ -344,5 +334,31 @@ public class RegisterPage extends AppCompatActivity {
     };
 
 
+
+
+
+
+
+
+    public int AgeCalculator(String Birthyear) {
+        Calendar today = Calendar.getInstance();
+        String[] PartsOfDate=Birthyear.split("/");//split the date to days,months,years
+        int currentDay=today.get(Calendar.DAY_OF_MONTH);
+        int currentMonth=today.get(Calendar.MONTH);
+        int currentYear=today.get(Calendar.YEAR);
+
+        int Day=Integer.parseInt(PartsOfDate[0]);
+        int Month=Integer.parseInt(PartsOfDate[1]);
+        int Year=Integer.parseInt(PartsOfDate[2]);
+        int Age=today.get(Calendar.YEAR) - Year;//get the age of the user if today is is birthday
+        if(currentMonth+1<Month){
+            Age--;//if birthday month is lower then today's month
+        }
+        else if(currentDay<Day){
+            Age--;//if birthday day is lower then today's day
+        }
+
+        return Age;
+    }
 
 }
