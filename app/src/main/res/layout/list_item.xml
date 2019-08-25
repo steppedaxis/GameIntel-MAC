@@ -8,7 +8,7 @@
     android:padding="10dp">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/line"
         android:layout_width="377dp"
         android:layout_height="0dp"
         android:layout_marginTop="52dp"
@@ -29,11 +29,11 @@
         android:text="Title"
         android:textColor="@color/common_google_signin_btn_text_dark_pressed"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView" />
+        app:layout_constraintBottom_toTopOf="@+id/line"
+        app:layout_constraintStart_toStartOf="@+id/line" />
 
     <TextView
-        android:id="@+id/genreName"
+        android:id="@+id/gameGenre"
         android:layout_width="91dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
@@ -43,7 +43,7 @@
         android:text="Genre"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintBottom_toTopOf="@+id/line"
         app:layout_constraintStart_toEndOf="@+id/gameName" />
 
     <ImageView
@@ -56,7 +56,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.702"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/line"
         tools:srcCompat="@tools:sample/avatars[0]" />
 
 </android.support.constraint.ConstraintLayout>

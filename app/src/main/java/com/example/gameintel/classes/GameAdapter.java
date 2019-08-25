@@ -45,7 +45,7 @@ public class GameAdapter extends FirestoreRecyclerAdapter<Game, GameAdapter.Game
         public GameHolder(@NonNull View itemView) {
             super(itemView);
             mTitleView=itemView.findViewById(R.id.gameName);
-            mGenreView=itemView.findViewById(R.id.genreName);
+            mGenreView=itemView.findViewById(R.id.gameGenre);
             mImageView=itemView.findViewById(R.id.gameImage);
         }
 
