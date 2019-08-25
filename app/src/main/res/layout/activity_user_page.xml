@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gamelistbackground"
+    android:background="@drawable/backgroundfinal"
     tools:context=".activities.UserPage">
 
     <Button
@@ -93,7 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="63dp"
             android:gravity="center|center_vertical"
-            android:text="TextView"
+            android:text="user_name"
             android:textSize="18sp" />
 
         <TextView
@@ -101,7 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="63dp"
             android:gravity="center|center_vertical"
-            android:text="TextView"
+            android:text="user_email"
             android:textSize="18sp" />
 
         <TextView
@@ -109,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="63dp"
             android:gravity="center"
-            android:text="TextView"
+            android:text="user_age"
             android:textSize="18sp" />
 
         <TextView
@@ -117,7 +117,7 @@
             android:layout_width="match_parent"
             android:layout_height="63dp"
             android:gravity="center"
-            android:text="TextView"
+            android:text="user_date"
             android:textSize="18sp" />
 
         <TextView
@@ -125,7 +125,7 @@
             android:layout_width="match_parent"
             android:layout_height="67dp"
             android:gravity="center|center_horizontal"
-            android:text="TextView"
+            android:text="email_verified"
             android:textSize="18sp" />
 
     </LinearLayout>
