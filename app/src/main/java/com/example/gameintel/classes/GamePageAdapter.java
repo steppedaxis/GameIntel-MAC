@@ -23,6 +23,14 @@ public class GamePageAdapter extends FirestoreRecyclerAdapter<Game, GamePageAdap
 
     @Override
     protected void onBindViewHolder(@NonNull GamePageHolder holder, int position, @NonNull Game model) {
+        Glide.with(holder.mPageImageView.getContext())
+                .load(model.getImage())
+                .into(holder.mPageImageView);
+        holder.mPageTitleView.setText(model.getName());
+        holder.mPageGenreView.setText(model.getGenre());
+        holder.mPageSubGenreView.setText(model.getSubGenres());
+
+
 
     }
 
@@ -49,6 +57,15 @@ public class GamePageAdapter extends FirestoreRecyclerAdapter<Game, GamePageAdap
             super(itemView);
             mPageImageView=itemView.findViewById(R.id.page_image);
             mPageTitleView=itemView.findViewById(R.id.page_title);
+            mPageGenreView=itemView.findViewById(R.id.page_genre);
+            mPageSubGenreView=itemView.findViewById(R.id.page_sub_geners);
+            mPageDeveloperView=itemView.findViewById(R.id.page_developer);
+            mPagePublisherView=itemView.findViewById(R.id.page_publisher);
+            mPageDescriptionView=itemView.findViewById(R.id.page_description);
+            mPageReleaseDateView=itemView.findViewById(R.id.page_release_date);
+            mPageSeriesView=itemView.findViewById(R.id.page_series);
+            mPagePlatformsView=itemView.findViewById(R.id.page_platforms);
+
         }
 
     }

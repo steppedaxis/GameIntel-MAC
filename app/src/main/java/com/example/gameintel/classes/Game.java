@@ -1,10 +1,5 @@
 package com.example.gameintel.classes;
 
-import com.google.firebase.database.PropertyName;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 public class Game {
     private String name;
     private String genre;
@@ -62,7 +57,7 @@ public class Game {
         return releaseDate;
     }
 
-    public String[] getSubGenres() {
+    public int getSubGenres() {
         return subGenres;
     }
 
