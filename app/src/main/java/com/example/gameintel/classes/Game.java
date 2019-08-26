@@ -1,5 +1,7 @@
 package com.example.gameintel.classes;
 
+import java.util.List;
+
 public class Game {
     private String name;
     private String genre;
@@ -7,16 +9,16 @@ public class Game {
     private String publisher;
     private String description;
     private String releaseDate;
-    private String[] subGenres;
+    private List<String> subGenres;
     private String series;
-    private String[] platforms;
+    private List<String> platforms;
     private String image;
 
     public Game(){
         //empty constructor needed
     }
 
-    public Game(String name, String genre, String developer, String publisher, String description, String releaseDate, String[] subGenres, String series, String[] platforms, String image) {
+    public Game(String name, String genre, String developer, String publisher, String description, String releaseDate, List<String> subGenres, String series, List<String> platforms, String image) {
         this.name = name;
         this.genre = genre;
         this.developer = developer;
@@ -57,7 +59,7 @@ public class Game {
         return releaseDate;
     }
 
-    public int getSubGenres() {
+    public List<String> getSubGenres() {
         return subGenres;
     }
 
@@ -65,7 +67,7 @@ public class Game {
         return series;
     }
 
-    public String[] getPlatforms() {
+    public List<String> getPlatforms() {
         return platforms;
     }
 }

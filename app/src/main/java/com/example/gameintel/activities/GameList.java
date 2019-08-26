@@ -1,5 +1,6 @@
 package com.example.gameintel.activities;
 
+import android.content.Intent;
 import android.nfc.Tag;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,11 +43,12 @@ import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.client.HttpClient;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 
-public class GameList extends AppCompatActivity {
+public class GameList extends AppCompatActivity implements GameAdapter.OnGameListener{
 
     static final String TAG="GameList";
     private FirebaseFirestore database=FirebaseFirestore.getInstance();
     private CollectionReference gameRef=database.collection("Games");
+
 
     private GameAdapter adapter;
 
@@ -67,7 +69,7 @@ public class GameList extends AppCompatActivity {
 
         //LinearLayoutManager layoutManager
           //      = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        adapter=new GameAdapter(options);
+        adapter=new GameAdapter(options,this);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -88,11 +90,10 @@ public class GameList extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
+    @Override
+    public void onGameClick(int position) {
+        Intent intent=new Intent(this,GamePage.class);
+        startActivity(intent);
+    }
 }
 

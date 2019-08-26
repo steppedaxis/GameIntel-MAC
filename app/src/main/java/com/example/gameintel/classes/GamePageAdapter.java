@@ -28,7 +28,8 @@ public class GamePageAdapter extends FirestoreRecyclerAdapter<Game, GamePageAdap
                 .into(holder.mPageImageView);
         holder.mPageTitleView.setText(model.getName());
         holder.mPageGenreView.setText(model.getGenre());
-        holder.mPageSubGenreView.setText(model.getSubGenres());
+        //holder.mPageSubGenreView.setText(model.getSubGenres());
+
 
 
 

@@ -19,7 +19,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/page_genre"
-        app:layout_constraintTop_toBottomOf="@+id/page_genre" />
+        app:layout_constraintTop_toBottomOf="@+id/page_genre"
+        tools:text="Sub Genres" />
 
     <TextView
         android:id="@+id/page_publisher"
@@ -33,7 +34,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/page_developer"
-        app:layout_constraintTop_toBottomOf="@+id/page_developer" />
+        app:layout_constraintTop_toBottomOf="@+id/page_developer"
+        tools:text="Publisher" />
 
     <TextView
         android:id="@+id/page_platforms"
@@ -47,7 +49,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/page_series"
-        app:layout_constraintTop_toBottomOf="@+id/page_series" />
+        app:layout_constraintTop_toBottomOf="@+id/page_series"
+        tools:text="Platforms" />
 
     <TextView
         android:id="@+id/page_series"
@@ -61,7 +64,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/page_release_date"
-        app:layout_constraintTop_toBottomOf="@+id/page_release_date" />
+        app:layout_constraintTop_toBottomOf="@+id/page_release_date"
+        tools:text="Series" />
 
     <TextView
         android:id="@+id/page_release_date"
@@ -75,7 +79,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/page_description"
-        app:layout_constraintTop_toBottomOf="@+id/page_description" />
+        app:layout_constraintTop_toBottomOf="@+id/page_description"
+        tools:text="Release Date" />
 
     <TextView
         android:id="@+id/page_developer"
@@ -89,7 +94,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/page_sub_geners"
-        app:layout_constraintTop_toBottomOf="@+id/page_sub_geners" />
+        app:layout_constraintTop_toBottomOf="@+id/page_sub_geners"
+        tools:text="Developer" />
 
     <TextView
         android:id="@+id/page_description"
@@ -103,7 +109,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/page_publisher"
-        app:layout_constraintTop_toBottomOf="@+id/page_publisher" />
+        app:layout_constraintTop_toBottomOf="@+id/page_publisher"
+        tools:text="Description" />
 
     <TextView
         android:id="@+id/page_genre"
@@ -117,7 +124,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.014"
         app:layout_constraintStart_toStartOf="@+id/page_image"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Genre" />
 
     <TextView
         android:id="@+id/page_title"
