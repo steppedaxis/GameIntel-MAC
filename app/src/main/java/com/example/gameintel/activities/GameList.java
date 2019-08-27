@@ -1,5 +1,6 @@
 package com.example.gameintel.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +34,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.ContentHandler;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,12 +45,11 @@ import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.client.HttpClient;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 
-public class GameList extends AppCompatActivity implements GameAdapter.OnGameListener{
+public class GameList extends AppCompatActivity{
 
     static final String TAG="GameList";
     private FirebaseFirestore database=FirebaseFirestore.getInstance();
     private CollectionReference gameRef=database.collection("Games");
-
 
     private GameAdapter adapter;
 
@@ -69,12 +70,20 @@ public class GameList extends AppCompatActivity implements GameAdapter.OnGameLis
 
         //LinearLayoutManager layoutManager
           //      = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        adapter=new GameAdapter(options,this);
+        adapter=new GameAdapter(options);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new GameAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, String name, int position) {
+            }
+        });
+
+
     }
 
     @Override
@@ -90,10 +99,6 @@ public class GameList extends AppCompatActivity implements GameAdapter.OnGameLis
     }
 
 
-    @Override
-    public void onGameClick(int position) {
-        Intent intent=new Intent(this,GamePage.class);
-        startActivity(intent);
-    }
+
 }
 
