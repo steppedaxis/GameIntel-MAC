@@ -162,4 +162,9 @@ public class UserPage extends AppCompatActivity {
 
 
     }
+
+    public void addGameButton(View view) {
+
+
+    }
 }

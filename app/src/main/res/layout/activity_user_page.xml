@@ -49,7 +49,7 @@
         android:layout_height="42dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/buttonshape"
-        android:onClick="logOutButton"
+        android:onClick="addGameButton"
         android:text="Add Game"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
