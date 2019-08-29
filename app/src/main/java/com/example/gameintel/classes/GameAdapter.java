@@ -37,6 +37,7 @@ public class GameAdapter extends FirestoreRecyclerAdapter<Game, GameAdapter.Game
                .load(model.getImage())
                .into(holder.mImageView);
 
+
     }
 
     @NonNull
@@ -48,7 +49,6 @@ public class GameAdapter extends FirestoreRecyclerAdapter<Game, GameAdapter.Game
 
     class GameHolder extends RecyclerView.ViewHolder{
        TextView mTitleView;
-       TextView mGenreView;
        ImageView mImageView;
 
         public GameHolder(@NonNull View itemView) {

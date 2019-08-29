@@ -68,8 +68,7 @@ public class GameList extends AppCompatActivity{
                 .setQuery(query,Game.class)
                 .build();
 
-        //LinearLayoutManager layoutManager
-          //      = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+
         adapter=new GameAdapter(options);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);

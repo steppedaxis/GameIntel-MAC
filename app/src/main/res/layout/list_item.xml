@@ -26,16 +26,15 @@
 
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginTop="28dp"
         android:fontFamily="@font/caravan"
         android:text="Title"
         android:textColor="@color/common_google_signin_btn_text_dark_pressed"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/line"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.471"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/gameImage"
