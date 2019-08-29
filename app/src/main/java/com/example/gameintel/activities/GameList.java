@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +17,8 @@ import com.example.gameintel.R;
 import com.example.gameintel.classes.Game;
 import com.example.gameintel.classes.GameAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -50,6 +53,10 @@ public class GameList extends AppCompatActivity{
     static final String TAG="GameList";
     private FirebaseFirestore database=FirebaseFirestore.getInstance();
     private CollectionReference gameRef=database.collection("Games");
+    private FirebaseAuth mAuth=FirebaseAuth.getInstance();
+    private ImageButton profileButton;
+    private ImageButton loginButton;
+
 
     private GameAdapter adapter;
 
@@ -57,6 +64,12 @@ public class GameList extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_list);
+
+        profileButton=findViewById(R.id.profileButton);
+        loginButton=findViewById(R.id.loginButton_list);
+
+
+
 
         setUpRecyclerView();
     }
@@ -89,6 +102,19 @@ public class GameList extends AppCompatActivity{
     protected void onStart(){
         super.onStart();
         adapter.startListening();
+
+        FirebaseUser currentUser=mAuth.getCurrentUser();
+
+        //user not logged in
+        if (currentUser==null){
+            profileButton.setVisibility(View.GONE);
+        }
+        else{
+            profileButton.setVisibility(View.VISIBLE);
+            loginButton.setVisibility(View.GONE);
+
+        }
+
     }
 
     @Override
@@ -98,6 +124,14 @@ public class GameList extends AppCompatActivity{
     }
 
 
+    public void profileButton(View view) {
+            Intent intent=new Intent(this,UserPage.class);
+            startActivity(intent);
+    }
 
+    public void loginScreen(View view) {
+        Intent intent=new Intent(this,LoginScreen.class);
+        startActivity(intent);
+    }
 }
 
