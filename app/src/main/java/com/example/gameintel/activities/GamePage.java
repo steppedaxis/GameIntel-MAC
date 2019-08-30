@@ -25,7 +25,7 @@ public class GamePage extends AppCompatActivity {
     private CollectionReference gameRef;
     private String title;
 
-
+    TextView image2;
     ImageView image;
     TextView name;
     TextView genre;
