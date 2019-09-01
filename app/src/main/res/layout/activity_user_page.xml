@@ -19,7 +19,7 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/buttonshape"
         android:onClick="resetPasswordBtn"
-        android:text="@string/userResetPass"
+        android:text="Change Password"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -50,13 +50,13 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/buttonshape"
         android:onClick="addGameButton"
-        android:text="Add Game"
+        android:text="Add Your Own Game"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/userLogOff"
-        tools:text="Add Game" />
+        tools:text="Add Your Own Game" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline3"

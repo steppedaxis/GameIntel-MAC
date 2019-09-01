@@ -1,5 +1,7 @@
 package com.example.gameintel.activities;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
@@ -8,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.gameintel.R;
@@ -16,6 +19,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class LoginScreen extends AppCompatActivity {
 
@@ -23,7 +29,7 @@ public class LoginScreen extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private TextInputEditText mEmailView;
     private TextInputEditText mPassView;
-
+    private FirebaseFirestore database;
 
 
     @Override
@@ -36,7 +42,7 @@ public class LoginScreen extends AppCompatActivity {
 
 
 
-
+        database=FirebaseFirestore.getInstance();
         mAuth=FirebaseAuth.getInstance();
     }
 
@@ -142,5 +148,45 @@ public class LoginScreen extends AppCompatActivity {
     }
 
 
+    public void forgotPassButton(View view) {
+         showAddItemDialog(LoginScreen.this);
 
+    }
+
+    private void showAddItemDialog(Context c) {
+        final EditText taskEditText = new EditText(c);
+        AlertDialog dialog = new AlertDialog.Builder(c)
+                .setTitle("Password Reset")
+                .setMessage("please enter your email")
+                .setView(taskEditText)
+                .setPositiveButton("Send Reset Email", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        final String givenEmail = String.valueOf(taskEditText.getText());
+
+                        database.collection("Users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()){
+                                    for (DocumentSnapshot document:task.getResult()){
+                                        String userEmail=document.getString("email");
+                                        if (userEmail.equals(givenEmail)){
+                                            mAuth.sendPasswordResetEmail(givenEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    Toast.makeText(LoginScreen.this, "Rest Password link was sent to your email", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        }
+                                    }
+                                }
+                            }
+                        });
+
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .create();
+        dialog.show();
+    }
 }

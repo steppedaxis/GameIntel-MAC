@@ -7,6 +7,23 @@
     android:background="@drawable/backgroundfinal"
     tools:context=".activities.LoginScreen">
 
+    <Button
+        android:id="@+id/registerButton2"
+        android:layout_width="121dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/buttonshape"
+        android:onClick="forgotPassButton"
+        android:text="Forgot My Password"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ConfirmButton"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/registerButton"
+        app:layout_constraintTop_toBottomOf="@+id/ConfirmButton"
+        app:layout_constraintVertical_bias="0.15"
+        tools:text="Forgot My Password" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -22,7 +39,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.685">
+        app:layout_constraintVertical_bias="0.642">
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/textInputEmail"
@@ -71,7 +88,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="84dp"
+        android:layout_marginBottom="112dp"
         android:background="@drawable/buttonshape"
         android:onClick="loginButton"
         android:text="@string/loginText"
@@ -82,10 +99,8 @@
 
     <Button
         android:id="@+id/registerButton"
-        android:layout_width="wrap_content"
-        android:layout_height="42dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_width="121dp"
+        android:layout_height="40dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
@@ -95,9 +110,9 @@
         android:text="@string/registerButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/ConfirmButton"
         app:layout_constraintTop_toBottomOf="@+id/ConfirmButton"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.15" />
 
 </android.support.constraint.ConstraintLayout>
