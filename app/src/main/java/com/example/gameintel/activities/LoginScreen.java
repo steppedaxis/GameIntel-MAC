@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.gameintel.R;
@@ -30,6 +31,8 @@ public class LoginScreen extends AppCompatActivity {
     private TextInputEditText mEmailView;
     private TextInputEditText mPassView;
     private FirebaseFirestore database;
+    private ProgressBar spinner;
+
 
 
     @Override
@@ -39,7 +42,8 @@ public class LoginScreen extends AppCompatActivity {
 
         mEmailView=(TextInputEditText)findViewById(R.id.emailText);
         mPassView=(TextInputEditText)findViewById(R.id.passText);
-
+        spinner=findViewById(R.id.progressBar);
+        spinner.setVisibility(View.GONE);
 
 
         database=FirebaseFirestore.getInstance();
@@ -48,6 +52,7 @@ public class LoginScreen extends AppCompatActivity {
 
 
     public void loginButton(View view) {
+        spinner.setVisibility(View.VISIBLE);
         attemptLogin();
     }
 
@@ -118,7 +123,7 @@ public class LoginScreen extends AppCompatActivity {
                 if (task.isSuccessful() && user.isEmailVerified()){
                    Log.d("GameIntel","login successful: "+task.isSuccessful());
                    //declare an intent to go to the MainChatActivity class file if the login attempt was successful
-                   Intent intent=new Intent(LoginScreen.this,UserPage.class);
+                   Intent intent=new Intent(LoginScreen.this,GameList.class);
                    finish();
                    startActivity(intent);
                 }

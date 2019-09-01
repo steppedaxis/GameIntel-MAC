@@ -24,7 +24,7 @@ public class GamePage extends AppCompatActivity {
     private FirebaseFirestore database;
     private CollectionReference gameRef;
     private String title;
-
+    String rea="rea";
     TextView image2;
     ImageView image;
     TextView name;
@@ -83,8 +83,10 @@ public class GamePage extends AppCompatActivity {
                             genre.setText(document.getString("genre"));
 
                             for (String sub_genre :listSubGenres){
-                                subGenres.append(sub_genre+", ");
+                                subGenres.append(sub_genre+",");
                             }
+                            String fixedSubGenres=removeLast(subGenres.getText().toString());
+                            subGenres.setText(fixedSubGenres);
 
                             description.setText("Description: "+document.getString("description"));
 
@@ -97,8 +99,12 @@ public class GamePage extends AppCompatActivity {
                             releaseDate.setText(document.getString("releaseDate"));
 
                             for (String platform:listPlatforms){
-                                platforms.append(platform+", ");
+                                platforms.append(platform+",");
                             }
+                            String fixedPlatforms=removeLast(platforms.getText().toString());
+                            platforms.setText(fixedPlatforms);
+
+
 
 
                         }
@@ -110,6 +116,12 @@ public class GamePage extends AppCompatActivity {
         });
     }
 
+    public String removeLast(String str) {
+        if (str != null && str.length() > 0 && str.charAt(str.length() - 1) == ',') {
+            str = str.substring(0, str.length() - 1);
+        }
+        return str;
+    }
 
 
 

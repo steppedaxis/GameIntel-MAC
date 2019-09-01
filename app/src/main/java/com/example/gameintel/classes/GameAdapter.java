@@ -57,7 +57,7 @@ public class GameAdapter extends FirestoreRecyclerAdapter<Game, GameAdapter.Game
             mImageView=itemView.findViewById(R.id.gameImage);
 
 
-            mImageView.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int position=getAdapterPosition();
