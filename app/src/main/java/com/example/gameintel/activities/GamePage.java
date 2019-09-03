@@ -88,7 +88,7 @@ public class GamePage extends AppCompatActivity {
                             String fixedSubGenres=removeLast(subGenres.getText().toString());
                             subGenres.setText(fixedSubGenres);
 
-                            description.setText("Description: "+document.getString("description"));
+                            description.setText(document.getString("description"));
 
                             developer.setText(document.getString("developer"));
 

@@ -69,62 +69,163 @@
             android:gravity="center"
             android:hint="Enter Release Date"
             android:inputType="textPersonName"
-            android:text="Select Genres"
+            android:text="Select Sub Genres"
             android:textSize="18sp" />
 
         <RadioGroup
+            android:id="@+id/radio1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/radioButton8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Simulation" />
+
+            <CheckBox
+                android:id="@+id/radioButton7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Fighting" />
+
+            <CheckBox
+                android:id="@+id/radioButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Adventure" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/radio2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/radioButton4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Survival" />
+
+            <CheckBox
+                android:id="@+id/radioButton5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Racing" />
+
+            <CheckBox
+                android:id="@+id/radioButton6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="First Person Shooter" />
+
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/radio3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <RadioButton
+            <CheckBox
                 android:id="@+id/radiobutton1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="RadioButton" />
+                android:text="Action" />
 
-            <RadioButton
+            <CheckBox
                 android:id="@+id/radiobutton2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="RadioButton" />
+                android:text="Strategy" />
 
-            <RadioButton
+            <CheckBox
                 android:id="@+id/radiobutton3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="RadioButton" />
+                android:text="RPG" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/editText2"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Enter Release Date"
+            android:inputType="textPersonName"
+            android:text="Select Platforms"
+            android:textSize="18sp" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="match_parent" >
+
+            <CheckBox
+                android:id="@+id/radioButton9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Playstation 4" />
+
+            <CheckBox
+                android:id="@+id/radioButton10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="PC" />
+
+            <CheckBox
+                android:id="@+id/radioButton11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Playstation 3" />
         </RadioGroup>
 
         <RadioGroup
             android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent" >
 
-            <RadioButton
-                android:id="@+id/radioButton4"
+            <CheckBox
+                android:id="@+id/radioButton12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="RadioButton" />
+                android:text="XBOX 360" />
 
-            <RadioButton
-                android:id="@+id/radioButton5"
+            <CheckBox
+                android:id="@+id/radioButton13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="RadioButton" />
+                android:text="XBOX ONE" />
 
-            <RadioButton
-                android:id="@+id/radioButton6"
+            <CheckBox
+                android:id="@+id/radioButton14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="RadioButton" />
+                android:text="Nintendo Switch" />
         </RadioGroup>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 </ScrollView>
