@@ -96,7 +96,8 @@ public class GamePage extends AppCompatActivity {
 
                             series.setText(document.getString("series"));
 
-                            releaseDate.setText(document.getString("releaseDate"));
+                            String releasedate=reverseRelease(document.getString("releaseDate"));
+                            releaseDate.setText(releasedate);
 
                             for (String platform:listPlatforms){
                                 platforms.append(platform+",");
@@ -121,6 +122,17 @@ public class GamePage extends AppCompatActivity {
             str = str.substring(0, str.length() - 1);
         }
         return str;
+    }
+
+    public String reverseRelease(String release){
+        String string[]=release.split("-");
+        String year=string[0];
+        String month=string[1];
+        String day=string[2];
+
+        String releasedatenew=day+"-"+month+"-"+year;
+
+        return  releasedatenew;
     }
 
 
