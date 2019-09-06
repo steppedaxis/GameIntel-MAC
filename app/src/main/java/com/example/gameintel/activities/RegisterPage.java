@@ -90,6 +90,7 @@ public class RegisterPage extends AppCompatActivity {
                 if(task.isSuccessful()){
                     for(DocumentSnapshot documentSnapshot : task.getResult()){
                         String dataBaseUser = documentSnapshot.getString("userName");
+
                         if(dataBaseUser.equals(givenUserName)){
                             mUserNameView.setError("UserName Taken");
                             return;
