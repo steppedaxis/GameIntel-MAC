@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Calendar;
@@ -39,7 +40,7 @@ public class RegisterPage extends AppCompatActivity {
     public static final String BIRTH_DATE_KEY = "birthdate";
 
 
-
+    private boolean statusUsername=false;
     private EditText mUserNameView;
     private EditText mNameView;
     private EditText mPasswordView;
@@ -76,30 +77,34 @@ public class RegisterPage extends AppCompatActivity {
 
 
 
+
     //submitButton() is an onclick for the submit button
     public void submitButton(View view) {
-        CollectionReference allUsersRef = mFirestore.collection("Users");
-        final String UserName=mUserNameView.getText().toString();
+        final String givenUserName = mUserNameView.getText().toString();
 
-        allUsersRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        CollectionReference usersRef = mFirestore.collection("Users");
+        Query query = usersRef.whereEqualTo("userName", givenUserName);
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (DocumentSnapshot document : task.getResult()) {
-                        String DBuserName = document.getString("userName");
-                        if (DBuserName.equals(UserName)) {
-                            mUserNameView.setError("User name already taken");
+                if(task.isSuccessful()){
+                    for(DocumentSnapshot documentSnapshot : task.getResult()){
+                        String dataBaseUser = documentSnapshot.getString("userName");
+                        if(dataBaseUser.equals(givenUserName)){
+                            mUserNameView.setError("UserName Taken");
                             return;
-                        } else {
-                            attemptRegister();
                         }
                     }
-                } else {
-                    Log.d("GameIntel", "Error getting documents: ", task.getException());
+                }
+
+                if(task.getResult().size() == 0 ){
+                    attemptRegister();
                 }
             }
         });
     }
+
+
 
     //attemptRegister() handels the user registration in the system
     public void attemptRegister(){
@@ -360,5 +365,12 @@ public class RegisterPage extends AppCompatActivity {
 
         return Age;
     }
+
+
+
+
+
+
+
 
 }
