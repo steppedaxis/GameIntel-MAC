@@ -158,6 +158,7 @@ public class UserPage extends AppCompatActivity {
     public void logOutButton(View view) {
         firebaseAuth.getInstance().signOut();
         Intent intent=new Intent(this,GameList.class);
+        finish();
         startActivity(intent);
 
 
@@ -165,6 +166,7 @@ public class UserPage extends AppCompatActivity {
 
     public void addGameButton(View view) {
         Intent intent=new Intent(this,addGamePage.class);
+        
         startActivity(intent);
 
     }

@@ -126,11 +126,13 @@ public class GameList extends AppCompatActivity{
 
     public void profileButton(View view) {
             Intent intent=new Intent(this,UserPage.class);
+
             startActivity(intent);
     }
 
     public void loginScreen(View view) {
         Intent intent=new Intent(this,LoginScreen.class);
+        finish();
         startActivity(intent);
     }
 }
