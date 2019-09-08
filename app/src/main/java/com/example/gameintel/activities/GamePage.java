@@ -126,11 +126,18 @@ public class GamePage extends AppCompatActivity {
 
     public String reverseRelease(String release){
         String string[]=release.split("-");
+        String releasedatenew=" ";
         String year=string[0];
         String month=string[1];
         String day=string[2];
 
-        String releasedatenew=day+"-"+month+"-"+year;
+        if (year.length()==1 || year.length()==2){
+            releasedatenew=release;
+        }
+        else{
+             releasedatenew=day+"-"+month+"-"+year;
+        }
+
 
         return  releasedatenew;
     }

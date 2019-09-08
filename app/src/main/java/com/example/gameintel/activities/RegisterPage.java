@@ -40,7 +40,6 @@ public class RegisterPage extends AppCompatActivity {
     public static final String BIRTH_DATE_KEY = "birthdate";
 
 
-    private boolean statusUsername=false;
     private EditText mUserNameView;
     private EditText mNameView;
     private EditText mPasswordView;
@@ -338,6 +337,10 @@ public class RegisterPage extends AppCompatActivity {
             mBirthDateView.setText(Day+"/"+Month+"/"+Year);
         }
     };
+
+
+    //=============================DATE PICKER DIALOG DEFINITION====================///
+
 
 
 

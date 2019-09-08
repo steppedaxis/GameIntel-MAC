@@ -22,7 +22,7 @@
             android:textSize="24sp" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/add_game_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -30,7 +30,7 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/add_game_developer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -38,7 +38,7 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/add_game_publisher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -46,19 +46,27 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/editText5"
+            android:id="@+id/add_game_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Enter Description"
             android:inputType="textPersonName" />
 
-        <EditText
-            android:id="@+id/editText6"
+        <Button
+            android:id="@+id/add_game_release_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Enter Release Date"
+            android:inputType="textPersonName"
+            android:text="ENTER RELEASE DATE" />
+
+        <EditText
+            android:id="@+id/add_game_series"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter Series"
             android:inputType="textPersonName" />
 
         <TextView
@@ -79,21 +87,21 @@
             android:orientation="horizontal">
 
             <CheckBox
-                android:id="@+id/radioButton8"
+                android:id="@+id/simulation_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Simulation" />
 
             <CheckBox
-                android:id="@+id/radioButton7"
+                android:id="@+id/fighting_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Fighting" />
 
             <CheckBox
-                android:id="@+id/radioButton3"
+                android:id="@+id/adventure_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -107,21 +115,21 @@
             android:orientation="horizontal">
 
             <CheckBox
-                android:id="@+id/radioButton4"
+                android:id="@+id/survival_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Survival" />
 
             <CheckBox
-                android:id="@+id/radioButton5"
+                android:id="@+id/racing_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Racing" />
 
             <CheckBox
-                android:id="@+id/radioButton6"
+                android:id="@+id/fps_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -136,21 +144,21 @@
             android:orientation="horizontal">
 
             <CheckBox
-                android:id="@+id/radiobutton1"
+                android:id="@+id/action_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Action" />
 
             <CheckBox
-                android:id="@+id/radiobutton2"
+                android:id="@+id/strategy_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Strategy" />
 
             <CheckBox
-                android:id="@+id/radiobutton3"
+                android:id="@+id/rpg_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -174,21 +182,21 @@
             android:layout_height="match_parent" >
 
             <CheckBox
-                android:id="@+id/radioButton9"
+                android:id="@+id/ps4_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Playstation 4" />
 
             <CheckBox
-                android:id="@+id/radioButton10"
+                android:id="@+id/pc_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="PC" />
 
             <CheckBox
-                android:id="@+id/radioButton11"
+                android:id="@+id/ps3_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -201,21 +209,21 @@
             android:layout_height="match_parent" >
 
             <CheckBox
-                android:id="@+id/radioButton12"
+                android:id="@+id/xbox360_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="XBOX 360" />
 
             <CheckBox
-                android:id="@+id/radioButton13"
+                android:id="@+id/xboxone_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="XBOX ONE" />
 
             <CheckBox
-                android:id="@+id/radioButton14"
+                android:id="@+id/nintendoswitch_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -225,7 +233,15 @@
         <RadioGroup
             android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent" >
+
+            <Button
+                android:id="@+id/add_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="addGameButton"
+                android:text="Add Game" />
+        </RadioGroup>
 
     </LinearLayout>
 </ScrollView>
