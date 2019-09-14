@@ -24,8 +24,6 @@ public class GamePage extends AppCompatActivity {
     private FirebaseFirestore database;
     private CollectionReference gameRef;
     private String title;
-    String rea="rea";
-    TextView image2;
     ImageView image;
     TextView name;
     TextView genre;
