@@ -146,7 +146,7 @@ public class RegisterPage extends AppCompatActivity {
 
 
 
-
+    //the checkAndRequestForPermissions() function handels asking the user for permissions before using his phone's gallery
     private void checkAndRequestForPermissions() {
 
         if (ContextCompat.checkSelfPermission(RegisterPage.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
@@ -183,7 +183,7 @@ public class RegisterPage extends AppCompatActivity {
     }
 
 
-
+    //this function opens the users gallery when he presses the user profile imageview in registration page
     private void openGallery() {
 
         Intent galleryIntent=new Intent(Intent.ACTION_GET_CONTENT);
