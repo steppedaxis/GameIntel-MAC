@@ -3,6 +3,7 @@ package com.example.gameintel.classes;
 import java.util.Date;
 
 public class User {
+    private String image;
     private String username;
     private String name;
     private String email;
@@ -13,12 +14,13 @@ public class User {
     public User() {
     }
 
-    public User(String username,String name, String email, int age, String birthdateYear) {
+    public User(String username,String name, String email, int age, String birthdateYear,String image) {
         this.username=username;
         this.name = name;
         this.email = email;
         this.age = age;
         this.birthdateYear = birthdateYear;
+        this.image=image;
     }
 
     public String getUserName()
@@ -41,4 +43,7 @@ public class User {
     public String getBirthdateYear() {
         return birthdateYear;
     }
+
+    public String getImage() {
+        return image; }
 }

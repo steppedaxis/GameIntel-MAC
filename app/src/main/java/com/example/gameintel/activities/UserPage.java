@@ -9,9 +9,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.gameintel.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,7 +32,7 @@ public class UserPage extends AppCompatActivity {
     private static final int IMAGE_REQUEST=1;
 
 
-    ImageButton mUserPic;
+    ImageView mUserPic;
     TextView mUserName;
     TextView mName;
     TextView mUserEmail;
@@ -41,8 +43,7 @@ public class UserPage extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseFirestore mFireStore;
     StorageReference mStorageReference;
-    private Uri imageURI;
-    private StorageTask uploadTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +55,7 @@ public class UserPage extends AppCompatActivity {
         mUserAge=findViewById(R.id.userAge);
         mBirthDate=findViewById(R.id.userBirthDate);
         verifyedEmail=findViewById(R.id.userVerifyEmail);
-
+        mUserPic=findViewById(R.id.user_image);
 
         firebaseAuth=FirebaseAuth.getInstance();
         mFireStore=FirebaseFirestore.getInstance();
@@ -102,6 +103,9 @@ public class UserPage extends AppCompatActivity {
                     for (DocumentSnapshot document : task.getResult()) {
                         String userEmail = document.getString("email");
                         if (userEmail.equals(email)) {
+                            Glide.with(mUserPic.getContext())
+                                    .load(document.getString("image"))
+                                    .into(mUserPic);
                             mUserName.setText(document.getString("userName"));
                            mName.setText("Name: "+document.getString("name"));
                            mUserAge.setText("Age: "+document.getLong("age"));

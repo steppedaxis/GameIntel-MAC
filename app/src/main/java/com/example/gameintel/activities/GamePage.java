@@ -72,6 +72,7 @@ public class GamePage extends AppCompatActivity {
                         List<String> listPlatforms = (List<String>) document.get("platforms");
 
                         if (document.getString("name").equals(title)){
+
                             Glide.with(image.getContext())
                                     .load(document.getString("image"))
                                     .into(image);

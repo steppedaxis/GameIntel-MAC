@@ -1,9 +1,16 @@
 package com.example.gameintel.activities;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,12 +20,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gameintel.R;
 import com.example.gameintel.classes.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,8 +37,13 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.Calendar;
+
+import io.grpc.Context;
 
 public class RegisterPage extends AppCompatActivity {
 
@@ -38,8 +52,13 @@ public class RegisterPage extends AppCompatActivity {
     public static final String USER_NAME_KEY = "username";
     public static final String NAME_KEY = "name";
     public static final String BIRTH_DATE_KEY = "birthdate";
+    static int REQUESTCODE=1;
+    static int PReqCode=1;
 
+    Uri pickedImageUri;
+    private String image;
 
+    private ImageView user_image;
     private EditText mUserNameView;
     private EditText mNameView;
     private EditText mPasswordView;
@@ -52,6 +71,7 @@ public class RegisterPage extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
+    private StorageReference mStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +84,7 @@ public class RegisterPage extends AppCompatActivity {
         Day=calendar.get(Calendar.DAY_OF_MONTH);
 
         showDateDialogOnButtonClick();
+        user_image=findViewById(R.id.register_image);
         mUserNameView=findViewById(R.id.registerUserName);
         mNameView=findViewById(R.id.registerName);
         mPasswordView=findViewById(R.id.registerPassword);
@@ -104,6 +125,72 @@ public class RegisterPage extends AppCompatActivity {
         });
     }
 
+
+    public void userProfilePic(View view) {
+
+        user_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (Build.VERSION.SDK_INT>=22){
+                    checkAndRequestForPermissions();
+                }
+                else{
+                    openGallery();
+                }
+
+            }
+        });
+
+    }
+
+
+
+
+    private void checkAndRequestForPermissions() {
+
+        if (ContextCompat.checkSelfPermission(RegisterPage.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(RegisterPage.this, Manifest.permission.READ_EXTERNAL_STORAGE)){
+                Toast.makeText(RegisterPage.this, "Accept needed permissions,please...", Toast.LENGTH_LONG).show();
+            }
+            else{
+                ActivityCompat.requestPermissions(RegisterPage.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PReqCode);
+            }
+        }
+        else{
+            openGallery();
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode==RESULT_OK && requestCode ==REQUESTCODE && data != null) {
+
+            //user successfuly picked an image
+            //we need to save its refernce to a Uri var
+            pickedImageUri=data.getData();
+            user_image.setImageURI(pickedImageUri);
+
+
+        }
+
+
+
+    }
+
+
+
+    private void openGallery() {
+
+        Intent galleryIntent=new Intent(Intent.ACTION_GET_CONTENT);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent,REQUESTCODE);
+
+    }
 
 
     //attemptRegister() handels the user registration in the system
@@ -245,6 +332,7 @@ public class RegisterPage extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 Log.d("GameIntel","user creation complete "+task.isSuccessful());
                 Toast.makeText(RegisterPage.this, "Registration attempt successful", Toast.LENGTH_SHORT).show();
+                WriteUserToFirestore(pickedImageUri);
                 final FirebaseUser user=mAuth.getCurrentUser();
                 user.sendEmailVerification();
                 Intent intent = new Intent(RegisterPage.this,LoginScreen.class);
@@ -259,7 +347,6 @@ public class RegisterPage extends AppCompatActivity {
             }
         });
 
-        WriteUserToFirestore();
 
 
 
@@ -283,19 +370,45 @@ public class RegisterPage extends AppCompatActivity {
     }
 
 
-    private void WriteUserToFirestore(){
-        // Create a new user with a first and last name
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
-        String userName=mUserNameView.getText().toString();
-        String Name=mNameView.getText().toString();
-        //int Age=Integer.parseInt(mAgeView.getText().toString());
-        String BirthYear=mBirthDateView.getText().toString();
-        int Age=AgeCalculator(BirthYear);
-        User userdetails=new User(userName,Name,email,Age,BirthYear);
+    private void WriteUserToFirestore(Uri pickedImageUri){
 
-// Add a new document with a generated ID
-        mFirestore.collection("Users").document().set(userdetails);
+        String userName=mUserNameView.getText().toString();
+
+        //need to first upload user picture to firebase storage and get url
+        mStorage= FirebaseStorage.getInstance().getReference().child("userProfilePics");
+        final StorageReference imageFilePath= mStorage.child(userName+" profilePic");
+        imageFilePath.putFile(pickedImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                //image upload is successfully done
+                //we can now get the image full download url
+
+                imageFilePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+
+                        // Create a new user with a first and last name
+
+                        image=uri.toString();
+                        String email = mEmailView.getText().toString();
+                        String userName=mUserNameView.getText().toString();
+                        String Name=mNameView.getText().toString();
+                        String BirthYear=mBirthDateView.getText().toString();
+                        int Age=AgeCalculator(BirthYear);
+
+                        User userdetails=new User(userName,Name,email,Age,BirthYear,image);
+
+                        // Add a new document with a generated ID
+                        mFirestore.collection("Users").document().set(userdetails);
+
+                    }
+                });
+
+            }
+        });
+
+
 
     }
 
@@ -369,11 +482,6 @@ public class RegisterPage extends AppCompatActivity {
 
         return Age;
     }
-
-
-
-
-
 
 
 
