@@ -21,6 +21,14 @@
             android:text="Add Game To Library"
             android:textSize="24sp" />
 
+        <ImageView
+            android:id="@+id/game_image_add_game"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="addGameImage"
+            app:srcCompat="@drawable/gamericon2"
+            tools:srcCompat="@tools:sample/avatars[0]" />
+
         <EditText
             android:id="@+id/add_game_name"
             android:layout_width="match_parent"
@@ -68,6 +76,13 @@
             android:ems="10"
             android:hint="Enter Series"
             android:inputType="textPersonName" />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown" />
 
         <TextView
             android:id="@+id/editText10"
@@ -163,6 +178,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="RPG" />
+
         </RadioGroup>
 
         <TextView
