@@ -77,13 +77,6 @@
             android:hint="Enter Series"
             android:inputType="textPersonName" />
 
-        <Spinner
-            android:id="@+id/spinner1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/btn_dropdown"
-            android:spinnerMode="dropdown" />
-
         <TextView
             android:id="@+id/editText10"
             android:layout_width="match_parent"
@@ -94,6 +87,13 @@
             android:inputType="textPersonName"
             android:text="Select Sub Genres"
             android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/geners_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="selet_Genres"
+            android:text="geners" />
 
         <RadioGroup
             android:id="@+id/radio1"

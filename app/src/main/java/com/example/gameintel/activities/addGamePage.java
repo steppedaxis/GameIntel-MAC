@@ -1,8 +1,10 @@
 package com.example.gameintel.activities;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -13,11 +15,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.gameintel.R;
@@ -30,6 +34,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -74,6 +79,7 @@ public class addGamePage extends AppCompatActivity {
 
 
     private StorageReference mStorage;
+   Button geners_button;
 
 
 
@@ -101,6 +107,8 @@ public class addGamePage extends AppCompatActivity {
         description=findViewById(R.id.add_game_description);
         release_date_btn=findViewById(R.id.add_game_release_btn);
         series=findViewById(R.id.add_game_series);
+        geners_button=findViewById(R.id.geners_button);
+
 
 
         simulation=findViewById(R.id.simulation_check);
@@ -122,90 +130,12 @@ public class addGamePage extends AppCompatActivity {
         game_image=findViewById(R.id.game_image_add_game);
 
 
+
+
+
     }
 
     public void addGameButton(View view) {
-
-        /*
-        //**************INPUT FIELDS STRINGS*******************
-
-        String game_name=name.getText().toString();
-        String game_developer=developer.getText().toString();
-        String game_publisher=publisher.getText().toString();
-        String game_description=description.getText().toString();
-        String game_series=series.getText().toString();
-
-
-        //*****************GENERS CHECKBOXES START************************
-        List<String> geners=new ArrayList<String>();
-
-        List<CheckBox> geners_row1=new ArrayList<CheckBox>();
-        geners_row1.add(simulation);
-        geners_row1.add(fighting);
-        geners_row1.add(adventrue);
-
-        List<CheckBox> geners_row2=new ArrayList<CheckBox>();
-        geners_row2.add(survival);
-        geners_row2.add(racing);
-        geners_row2.add(fps);
-
-        List<CheckBox> geners_row3=new ArrayList<CheckBox>();
-        geners_row3.add(action);
-        geners_row3.add(strategy);
-        geners_row3.add(rpg);
-
-
-
-        for (CheckBox item:geners_row1){
-            if (item.isChecked()){
-                geners.add(item.getText().toString());
-            }
-        }
-
-        for (CheckBox item:geners_row2){
-            if (item.isChecked()){
-                geners.add(item.getText().toString());
-            }
-        }
-
-        for (CheckBox item:geners_row3){
-            if (item.isChecked()){
-                geners.add(item.getText().toString());
-            }
-        }
-
-        //*****************GENERS CHECKBOXES END************************
-
-
-
-        //*****************PLATFORMS CHECKBOXES START************************
-        List<String> platforms=new ArrayList<String>();
-
-        List<CheckBox> platforms_row1=new ArrayList<CheckBox>();
-        platforms_row1.add(ps4);
-        platforms_row1.add(pc);
-        platforms_row1.add(ps3);
-
-        List<CheckBox> platforms_row2=new ArrayList<CheckBox>();
-        platforms_row2.add(xbox360);
-        platforms_row2.add(xbox_one);
-        platforms_row2.add(nintendo_switch);
-
-        for (CheckBox item:platforms_row1){
-            if (item.isChecked()){
-                platforms.add(item.getText().toString());
-            }
-        }
-
-        for (CheckBox item:platforms_row2){
-            if (item.isChecked()){
-                platforms.add(item.getText().toString());
-            }
-        }
-
-        //*****************PLATFORMS CHECKBOXES END************************
-        */
-
 
         String game_name=name.getText().toString();
 
@@ -323,31 +253,7 @@ public class addGamePage extends AppCompatActivity {
         startActivity(intent);
         finish();
 
-        /*
-        Game gameDetailes=new Game(game_name,geners.get(0),game_developer,game_publisher,game_description,release_date_btn.getText().toString(),
-                geners,game_series,platforms,"image");
-
-
-        database.collection("Games").document().set(gameDetailes);
-
-
-        Intent intent=new Intent(this,GameList.class);
-        startActivity(intent);
-        finish();
-        */
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -425,6 +331,50 @@ public class addGamePage extends AppCompatActivity {
 
 
 
+
+
+    public void selet_Genres(View view) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose genres");
+
+        // Add a checkbox list
+        String[] genres = {"simulation", "fighting", "adventrue", "survival", "racing","fps","action","strategy","rpg"};
+        final List<String> geners=new ArrayList<String>();
+        final boolean[] checkedItems=new boolean[9];
+        Arrays.fill(checkedItems,Boolean.FALSE);
+        builder.setMultiChoiceItems(genres, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                // The user checked or unchecked a box
+
+            }
+        });
+
+
+        // Add OK and Cancel buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // The user clicked OK
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+
+// Create and show the alert dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+
+
+    }
+
+
+
+
+
+
+
+
     //=============================DATE PICKER DIALOG DEFINITION====================///
     public void showDateDialogOnButtonClick(){
         release_date_btn=findViewById(R.id.add_game_release_btn);
@@ -455,8 +405,6 @@ public class addGamePage extends AppCompatActivity {
             release_date_btn.setText(Day+"-"+Month+"-"+Year);
         }
     };
-
-
 
 
     //=============================DATE PICKER DIALOG DEFINITION====================///
