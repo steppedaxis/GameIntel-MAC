@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Game {
     private String name;
+    private String search_text;
     private String genre;
     private String developer;
     private String publisher;
@@ -18,8 +19,9 @@ public class Game {
         //empty constructor needed
     }
 
-    public Game(String name, String genre, String developer, String publisher, String description, String releaseDate, List<String> subGenres, String series, List<String> platforms, String image) {
+    public Game(String name,String search_text ,String genre, String developer, String publisher, String description, String releaseDate, List<String> subGenres, String series, List<String> platforms, String image) {
         this.name = name;
+        this.search_text=search_text;
         this.genre = genre;
         this.developer = developer;
         this.publisher = publisher;
@@ -70,4 +72,10 @@ public class Game {
     public List<String> getPlatforms() {
         return platforms;
     }
+
+    public String getSearch_text(){
+        return search_text;
+    }
+
+
 }

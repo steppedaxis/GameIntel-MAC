@@ -158,6 +158,7 @@ public class addGamePage extends AppCompatActivity {
 
                         //**************INPUT FIELDS STRINGS*******************//
                         String game_name=name.getText().toString();
+                        String game_search=name.getText().toString().toLowerCase();
                         String game_developer=developer.getText().toString();
                         String game_publisher=publisher.getText().toString();
                         String game_description=description.getText().toString();
@@ -233,8 +234,11 @@ public class addGamePage extends AppCompatActivity {
 
                         //*****************PLATFORMS CHECKBOXES END************************//
 
+                        if (image==null){
+                            image="image";
+                        }
 
-                        Game gameDetailes=new Game(game_name,geners.get(0),game_developer,game_publisher,game_description,release_date_btn.getText().toString(),
+                        Game gameDetailes=new Game(game_name,game_search,geners.get(0),game_developer,game_publisher,game_description,release_date_btn.getText().toString(),
                                 geners,game_series,platforms,image);
 
 

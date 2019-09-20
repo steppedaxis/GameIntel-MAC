@@ -3,11 +3,16 @@ package com.example.gameintel.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.nfc.Tag;
+import android.support.annotation.NonNull;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -17,6 +22,9 @@ import com.example.gameintel.R;
 import com.example.gameintel.classes.Game;
 import com.example.gameintel.classes.GameAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -135,5 +143,79 @@ public class GameList extends AppCompatActivity{
         finish();
         startActivity(intent);
     }
+
+
+
+
+
+    //SEARCH MENU
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //inflating menu_menu.xml
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+        //Searchview
+        MenuItem item=menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                //called when user presses search button
+                searchData(s); //function call with string entered in searchView as parameter
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                //called as and when a user types even a single lettter
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //handels other menu called item clicks here
+        if (item.getItemId()==R.id.action_settings){
+            Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+
+    private void searchData(String s){
+
+        Query query = database.collection("Games").orderBy("search_text").startAt(s.toUpperCase()).endAt(s.toLowerCase()+"\uf8ff");
+
+        FirestoreRecyclerOptions<Game> options = new FirestoreRecyclerOptions.Builder<Game>()
+                .setQuery(query,Game.class)
+                .setLifecycleOwner(this)
+                .build();
+
+
+        adapter=new GameAdapter(options);
+
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
 }
 
