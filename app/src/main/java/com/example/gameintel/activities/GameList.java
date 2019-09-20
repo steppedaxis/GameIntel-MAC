@@ -161,13 +161,14 @@ public class GameList extends AppCompatActivity{
             @Override
             public boolean onQueryTextSubmit(String s) {
                 //called when user presses search button
-                searchData(s); //function call with string entered in searchView as parameter
+                //function call with string entered in searchView as parameter
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
                 //called as and when a user types even a single lettter
+                searchData(s);
                 return false;
             }
         });
@@ -178,8 +179,10 @@ public class GameList extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //handels other menu called item clicks here
-        if (item.getItemId()==R.id.action_settings){
-            Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+        if (item.getItemId()==R.id.action_profile){
+            Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent(this,UserPage.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -190,7 +193,7 @@ public class GameList extends AppCompatActivity{
 
     private void searchData(String s){
 
-        Query query = database.collection("Games").orderBy("search_text").startAt(s.toUpperCase()).endAt(s.toLowerCase()+"\uf8ff");
+        Query query = database.collection("Games").orderBy("search_text").startAt(s).endAt(s+"\uf8ff");
 
         FirestoreRecyclerOptions<Game> options = new FirestoreRecyclerOptions.Builder<Game>()
                 .setQuery(query,Game.class)

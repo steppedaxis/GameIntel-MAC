@@ -30,7 +30,8 @@
             android:gravity="center_horizontal"
             android:text="@string/registerHead"
             android:textAllCaps="false"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textColorHint="@color/common_google_signin_btn_text_dark_default"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -48,7 +49,9 @@
             android:layout_height="77dp"
             android:ems="10"
             android:hint="@string/registerUserName"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textColorHint="@color/common_google_signin_btn_text_dark_default" />
 
         <EditText
             android:id="@+id/registerName"
@@ -56,7 +59,9 @@
             android:layout_height="77dp"
             android:ems="10"
             android:hint="@string/Name"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textColorHint="@color/common_google_signin_btn_text_dark_default" />
 
         <EditText
             android:id="@+id/registerPassword"
@@ -64,7 +69,9 @@
             android:layout_height="77dp"
             android:ems="10"
             android:hint="@string/registerPassword"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textColorHint="@color/common_google_signin_btn_text_dark_default" />
 
         <EditText
             android:id="@+id/registerEmail"
@@ -72,7 +79,9 @@
             android:layout_height="77dp"
             android:ems="10"
             android:hint="@string/email"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textColorHint="@color/common_google_signin_btn_text_dark_default" />
 
         <Button
             android:id="@+id/registerDateButton"
@@ -89,7 +98,8 @@
             android:hint="@string/registerBirthDate"
             android:inputType="text"
             android:textAllCaps="true"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textColorHint="@color/common_google_signin_btn_text_dark_default"
             android:textSize="24sp" />
 
         <Button
