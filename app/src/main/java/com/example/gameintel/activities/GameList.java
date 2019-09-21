@@ -1,6 +1,8 @@
 package com.example.gameintel.activities;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.support.annotation.NonNull;
@@ -64,6 +66,7 @@ public class GameList extends AppCompatActivity{
     private FirebaseAuth mAuth=FirebaseAuth.getInstance();
     private ImageButton profileButton;
     private ImageButton loginButton;
+    private FirebaseUser currenrtUser;
 
 
     private GameAdapter adapter;
@@ -76,7 +79,11 @@ public class GameList extends AppCompatActivity{
         profileButton=findViewById(R.id.profileButton);
         loginButton=findViewById(R.id.loginButton_list);
 
+        currenrtUser=mAuth.getCurrentUser();
 
+        if (currenrtUser==null){
+            annoyingMessage();
+        }
 
 
         setUpRecyclerView();
@@ -208,7 +215,43 @@ public class GameList extends AppCompatActivity{
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
+
+        adapter.setOnItemClickListener(new GameAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, String name, int position) {
+            }
+        });
+
+
     }
+
+
+    private void annoyingMessage(){
+
+        //=========Alert box to annoy users into creating accounts=======
+        AlertDialog.Builder builder=new AlertDialog.Builder(GameList.this);
+        builder.setCancelable(true);
+        builder.setTitle("Hello!");
+        builder.setMessage("Have you signed up? be sure to, as you will be able to contribute to the library yourself and more cool stuff\nif you have already signed up be sure to log in");
+
+        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        builder.show();
+
+
+    }
+
+
+
 
 
 
