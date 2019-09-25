@@ -246,8 +246,6 @@ public class GameList extends AppCompatActivity{
             }
         });
         builder.show();
-
-
     }
 
 
