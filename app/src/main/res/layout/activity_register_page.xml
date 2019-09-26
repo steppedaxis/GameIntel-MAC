@@ -35,13 +35,16 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/register_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_gravity="center_horizontal"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp"
             android:onClick="userProfilePic"
-            app:srcCompat="@drawable/gamericon2"
-            tools:srcCompat="@tools:sample/avatars[0]" />
+            android:src="@drawable/profilepic"
+            tools:srcCompat="@drawable/profilepic" />
 
         <EditText
             android:id="@+id/registerUserName"
