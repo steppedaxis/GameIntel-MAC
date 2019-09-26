@@ -36,15 +36,14 @@
             android:textStyle="bold" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/register_image"
+            android:id="@+id/user_image"
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:layout_gravity="center_horizontal"
+            android:onClick="userProfilePic"
             app:civ_border_color="#FF000000"
             app:civ_border_width="2dp"
-            android:onClick="userProfilePic"
-            android:src="@drawable/profilepic"
-            tools:srcCompat="@drawable/profilepic" />
+            tools:srcCompat="@tools:sample/avatars[0]" />
 
         <EditText
             android:id="@+id/registerUserName"

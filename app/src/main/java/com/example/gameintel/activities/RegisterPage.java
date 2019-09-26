@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -24,9 +25,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.gameintel.R;
 import com.example.gameintel.classes.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -41,6 +44,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.Calendar;
 
 import io.grpc.Context;
@@ -48,6 +53,7 @@ import io.grpc.Context;
 public class RegisterPage extends AppCompatActivity {
 
     static final int DIALOG_ID=0;
+    String deafultProfilePic="https://firebasestorage.googleapis.com/v0/b/gameinteldb.appspot.com/o/userProfilePics%2Fprofilepic.png?alt=media&token=466bed3e-3964-4f63-ba9d-0d663899a0c5";
     public static final String userPrefs="userDetails";
     public static final String USER_NAME_KEY = "username";
     public static final String NAME_KEY = "name";
@@ -84,7 +90,7 @@ public class RegisterPage extends AppCompatActivity {
         Day=calendar.get(Calendar.DAY_OF_MONTH);
 
         showDateDialogOnButtonClick();
-        user_image=findViewById(R.id.register_image);
+        user_image=findViewById(R.id.user_image);
         mUserNameView=findViewById(R.id.registerUserName);
         mNameView=findViewById(R.id.registerName);
         mPasswordView=findViewById(R.id.registerPassword);
@@ -93,6 +99,11 @@ public class RegisterPage extends AppCompatActivity {
 
         mAuth=FirebaseAuth.getInstance();
         mFirestore=FirebaseFirestore.getInstance();
+
+        Glide.with(user_image.getContext())
+                .load(deafultProfilePic)
+                .into(user_image);
+
     }
 
 
@@ -370,43 +381,61 @@ public class RegisterPage extends AppCompatActivity {
     }
 
 
-    private void WriteUserToFirestore(Uri pickedImageUri){
+    private void WriteUserToFirestore(Uri pickedImageUri) {
 
-        String userName=mUserNameView.getText().toString();
+        String userName = mUserNameView.getText().toString();
 
         //need to first upload user picture to firebase storage and get url
-        mStorage= FirebaseStorage.getInstance().getReference().child("userProfilePics");
-        final StorageReference imageFilePath= mStorage.child(userName+" profilePic");
-        imageFilePath.putFile(pickedImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+        mStorage = FirebaseStorage.getInstance().getReference().child("userProfilePics");
+        final StorageReference imageFilePath = mStorage.child(userName + " profilePic");
 
-                //image upload is successfully done
-                //we can now get the image full download url
+        if (pickedImageUri==null){
+            image = deafultProfilePic;
+            String email = mEmailView.getText().toString();
+            String Name=mNameView.getText().toString();
+            String BirthYear=mBirthDateView.getText().toString();
+            int Age=AgeCalculator(BirthYear);
 
-                imageFilePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
+            User userdetails=new User(userName,Name,email,Age,BirthYear,image);
 
-                        // Create a new user with a first and last name
+            // Add a new document with a generated ID
+            mFirestore.collection("Users").document().set(userdetails);
+        } else{
 
-                        image=uri.toString();
-                        String email = mEmailView.getText().toString();
-                        String userName=mUserNameView.getText().toString();
-                        String Name=mNameView.getText().toString();
-                        String BirthYear=mBirthDateView.getText().toString();
-                        int Age=AgeCalculator(BirthYear);
+            imageFilePath.putFile(pickedImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                        User userdetails=new User(userName,Name,email,Age,BirthYear,image);
+                    //image upload is successfully done
+                    //we can now get the image full download url
 
-                        // Add a new document with a generated ID
-                        mFirestore.collection("Users").document().set(userdetails);
+                    imageFilePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
 
-                    }
-                });
+                            image = uri.toString();
+                            String email = mEmailView.getText().toString();
+                            String userName=mUserNameView.getText().toString();
+                            String Name=mNameView.getText().toString();
+                            String BirthYear=mBirthDateView.getText().toString();
+                            int Age=AgeCalculator(BirthYear);
 
-            }
-        });
+                            User userdetails=new User(userName,Name,email,Age,BirthYear,image);
+
+                            // Add a new document with a generated ID
+                            mFirestore.collection("Users").document().set(userdetails);
+
+                        }
+
+
+                    });
+
+                }
+
+            });
+
+        }
+
 
 
 
@@ -482,6 +511,7 @@ public class RegisterPage extends AppCompatActivity {
 
         return Age;
     }
+
 
 
 
