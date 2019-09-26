@@ -19,6 +19,8 @@
             android:fontFamily="@font/futura"
             android:gravity="center"
             android:text="Add Game To Library"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textColorHint="@color/common_google_signin_btn_text_dark_default"
             android:textSize="24sp" />
 
         <ImageView
@@ -35,7 +37,9 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Enter Name"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textColorHint="@color/common_google_signin_btn_text_dark_default" />
 
         <EditText
             android:id="@+id/add_game_developer"
@@ -43,7 +47,9 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Enter Developer"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textColorHint="@color/common_google_signin_btn_text_dark_default" />
 
         <EditText
             android:id="@+id/add_game_publisher"
@@ -51,7 +57,9 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Enter Publisher"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textColorHint="@color/common_google_signin_btn_text_dark_default" />
 
         <EditText
             android:id="@+id/add_game_description"
@@ -59,7 +67,9 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Enter Description"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textColorHint="@color/common_google_signin_btn_text_dark_default" />
 
         <Button
             android:id="@+id/add_game_release_btn"
@@ -75,7 +85,9 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Enter Series"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textColorHint="@color/common_google_signin_btn_text_dark_default" />
 
         <TextView
             android:id="@+id/editText10"
@@ -85,7 +97,9 @@
             android:gravity="center"
             android:hint="Enter Release Date"
             android:inputType="textPersonName"
-            android:text="Select Sub Genres"
+            android:text="Select Genres"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textColorHint="@color/common_google_signin_btn_text_dark_default"
             android:textSize="18sp" />
 
         <Button
@@ -94,92 +108,6 @@
             android:layout_height="wrap_content"
             android:onClick="selet_Genres"
             android:text="geners" />
-
-        <RadioGroup
-            android:id="@+id/radio1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/simulation_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Simulation" />
-
-            <CheckBox
-                android:id="@+id/fighting_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Fighting" />
-
-            <CheckBox
-                android:id="@+id/adventure_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Adventure" />
-        </RadioGroup>
-
-        <RadioGroup
-            android:id="@+id/radio2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/survival_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Survival" />
-
-            <CheckBox
-                android:id="@+id/racing_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Racing" />
-
-            <CheckBox
-                android:id="@+id/fps_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="First Person Shooter" />
-
-        </RadioGroup>
-
-        <RadioGroup
-            android:id="@+id/radio3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/action_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Action" />
-
-            <CheckBox
-                android:id="@+id/strategy_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Strategy" />
-
-            <CheckBox
-                android:id="@+id/rpg_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="RPG" />
-
-        </RadioGroup>
 
         <TextView
             android:id="@+id/editText2"
@@ -190,74 +118,23 @@
             android:hint="Enter Release Date"
             android:inputType="textPersonName"
             android:text="Select Platforms"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
             android:textSize="18sp" />
 
-        <RadioGroup
+        <Button
+            android:id="@+id/button"
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="platforms_select"
+            android:text="Platforms" />
 
-            <CheckBox
-                android:id="@+id/ps4_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Playstation 4" />
-
-            <CheckBox
-                android:id="@+id/pc_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="PC" />
-
-            <CheckBox
-                android:id="@+id/ps3_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Playstation 3" />
-        </RadioGroup>
-
-        <RadioGroup
+        <Button
+            android:id="@+id/add_btn"
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="match_parent" >
-
-            <CheckBox
-                android:id="@+id/xbox360_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="XBOX 360" />
-
-            <CheckBox
-                android:id="@+id/xboxone_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="XBOX ONE" />
-
-            <CheckBox
-                android:id="@+id/nintendoswitch_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Nintendo Switch" />
-        </RadioGroup>
-
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="match_parent" >
-
-            <Button
-                android:id="@+id/add_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="addGameButton"
-                android:text="Add Game" />
-        </RadioGroup>
+            android:layout_height="wrap_content"
+            android:onClick="addGameButton"
+            android:text="Add Game" />
 
     </LinearLayout>
 </ScrollView>

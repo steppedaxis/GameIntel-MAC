@@ -4,11 +4,14 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -28,11 +31,14 @@ import com.example.gameintel.R;
 import com.example.gameintel.classes.Game;
 import com.example.gameintel.classes.User;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.common.reflect.TypeToken;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -111,21 +117,7 @@ public class addGamePage extends AppCompatActivity {
 
 
 
-        simulation=findViewById(R.id.simulation_check);
-        fighting=findViewById(R.id.fighting_check);
-        adventrue=findViewById(R.id.adventure_check);
-        survival=findViewById(R.id.survival_check);
-        racing=findViewById(R.id.racing_check);
-        fps=findViewById(R.id.fps_check);
-        action=findViewById(R.id.action_check);
-        strategy=findViewById(R.id.strategy_check);
-        rpg=findViewById(R.id.rpg_check);
-        ps4=findViewById(R.id.ps4_check);
-        pc=findViewById(R.id.pc_check);
-        ps3=findViewById(R.id.ps3_check);
-        xbox360=findViewById(R.id.xbox360_check);
-        xbox_one=findViewById(R.id.xboxone_check);
-        nintendo_switch=findViewById(R.id.nintendoswitch_check);
+
 
         game_image=findViewById(R.id.game_image_add_game);
 
@@ -154,7 +146,6 @@ public class addGamePage extends AppCompatActivity {
                     public void onSuccess(Uri uri) {
 
                         image=uri.toString();
-                        // Create a new user with a first and last name
 
                         //**************INPUT FIELDS STRINGS*******************//
                         String game_name=name.getText().toString();
@@ -165,81 +156,8 @@ public class addGamePage extends AppCompatActivity {
                         String game_series=series.getText().toString();
 
 
-                        //*****************GENERS CHECKBOXES START************************//
-                        List<String> geners=new ArrayList<String>();
-
-                        List<CheckBox> geners_row1=new ArrayList<CheckBox>();
-                        geners_row1.add(simulation);
-                        geners_row1.add(fighting);
-                        geners_row1.add(adventrue);
-
-                        List<CheckBox> geners_row2=new ArrayList<CheckBox>();
-                        geners_row2.add(survival);
-                        geners_row2.add(racing);
-                        geners_row2.add(fps);
-
-                        List<CheckBox> geners_row3=new ArrayList<CheckBox>();
-                        geners_row3.add(action);
-                        geners_row3.add(strategy);
-                        geners_row3.add(rpg);
-
-
-
-                        for (CheckBox item:geners_row1){
-                            if (item.isChecked()){
-                                geners.add(item.getText().toString());
-                            }
-                        }
-
-                        for (CheckBox item:geners_row2){
-                            if (item.isChecked()){
-                                geners.add(item.getText().toString());
-                            }
-                        }
-
-                        for (CheckBox item:geners_row3){
-                            if (item.isChecked()){
-                                geners.add(item.getText().toString());
-                            }
-                        }
-
-                        //*****************GENERS CHECKBOXES END************************//
-
-
-
-                        //*****************PLATFORMS CHECKBOXES START************************//
-                        List<String> platforms=new ArrayList<String>();
-
-                        List<CheckBox> platforms_row1=new ArrayList<CheckBox>();
-                        platforms_row1.add(ps4);
-                        platforms_row1.add(pc);
-                        platforms_row1.add(ps3);
-
-                        List<CheckBox> platforms_row2=new ArrayList<CheckBox>();
-                        platforms_row2.add(xbox360);
-                        platforms_row2.add(xbox_one);
-                        platforms_row2.add(nintendo_switch);
-
-                        for (CheckBox item:platforms_row1){
-                            if (item.isChecked()){
-                                platforms.add(item.getText().toString());
-                            }
-                        }
-
-                        for (CheckBox item:platforms_row2){
-                            if (item.isChecked()){
-                                platforms.add(item.getText().toString());
-                            }
-                        }
-
-                        //*****************PLATFORMS CHECKBOXES END************************//
-
-                        if (image==null){
-                            image="image";
-                        }
-
-                        Game gameDetailes=new Game(game_name,game_search,geners.get(0),game_developer,game_publisher,game_description,release_date_btn.getText().toString(),
-                                geners,game_series,platforms,image);
+                        Game gameDetailes=new Game(game_name,game_search,"temp",game_developer,game_publisher,game_description,release_date_btn.getText().toString(),
+                                loadList("selectedgeneres"),game_series,loadList("platformslist"),image);
 
 
                         database.collection("Games").document().set(gameDetailes);
@@ -332,24 +250,27 @@ public class addGamePage extends AppCompatActivity {
 
 
 
-
-
-
-
-
     public void selet_Genres(View view) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choose genres");
 
         // Add a checkbox list
-        String[] genres = {"simulation", "fighting", "adventrue", "survival", "racing","fps","action","strategy","rpg"};
-        final List<String> geners=new ArrayList<String>();
+        final String[] genres = {"simulation", "fighting", "adventrue", "survival", "racing","fps","action","strategy","rpg"};
+        final List<String> selected_geners=new ArrayList<String>();
+        selected_geners.clear();
         final boolean[] checkedItems=new boolean[9];
         Arrays.fill(checkedItems,Boolean.FALSE);
         builder.setMultiChoiceItems(genres, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 // The user checked or unchecked a box
+                Toast.makeText(addGamePage.this, "Position: " + which + " Value: " + genres[which] + " State: " + (isChecked ? "checked" : "unchecked"), Toast.LENGTH_LONG).show();
+                if (isChecked){
+                    selected_geners.add(genres[which]);
+                }
+                else{
+                    selected_geners.remove(genres[which]);
+                }
 
             }
         });
@@ -360,19 +281,67 @@ public class addGamePage extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // The user clicked OK
+                saveList(selected_geners,"selectedgeneres");
+
+
             }
         });
-        builder.setNegativeButton("Cancel", null);
 
-// Create and show the alert dialog
+        // Create and show the alert dialog
         AlertDialog dialog = builder.create();
         dialog.show();
-
-
 
     }
 
 
+
+
+
+
+
+
+
+
+
+    public void platforms_select(View view) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose platforms");
+
+        // Add a checkbox list
+        final String[] platforms = {"xbox 360", "xbox one", "ps4", "ps3", "pc","nintendo switch"};
+        final List<String> selected_platforms=new ArrayList<String>();
+        selected_platforms.clear();
+        final boolean[] checkedItems=new boolean[6];
+        Arrays.fill(checkedItems,Boolean.FALSE);
+        builder.setMultiChoiceItems(platforms, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                // The user checked or unchecked a box
+                Toast.makeText(addGamePage.this, "Position: " + which + " Value: " + platforms[which] + " State: " + (isChecked ? "checked" : "unchecked"), Toast.LENGTH_LONG).show();
+                if (isChecked){
+                    selected_platforms.add(platforms[which]);
+                }
+                else{
+                    selected_platforms.remove(platforms[which]);
+                }
+
+            }
+        });
+
+
+        // Add OK and Cancel buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // The user clicked OK
+                saveList(selected_platforms,"platformslist");
+            }
+        });
+
+        // Create and show the alert dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 
 
 
@@ -411,5 +380,39 @@ public class addGamePage extends AppCompatActivity {
     };
 
 
+
+
     //=============================DATE PICKER DIALOG DEFINITION====================///
+
+    private void saveList(List<String> yourList, String yourKey) {
+
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(this.getApplicationContext());
+
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+
+        Gson gson = new Gson();
+        String json = gson.toJson(yourList);
+
+        prefsEditor.putString(yourKey, json);
+
+        prefsEditor.apply();
+    }
+
+    private List<String> loadList(String yourKey) {
+
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(this.getApplicationContext());
+
+        Gson gson = new Gson();
+        String json = prefs.getString(yourKey, null);
+
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+
+        return gson.fromJson(json, type);
+    }
+
+
+
+
 }
