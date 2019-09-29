@@ -21,6 +21,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GamePage extends AppCompatActivity {
@@ -30,14 +31,14 @@ public class GamePage extends AppCompatActivity {
     private String title;
     ImageView image;
     TextView name;
-    TextView genre;
-    TextView subGenres;
+    TextView genres;
     TextView description;
     TextView developer;
     TextView publisher;
     TextView series;
     TextView releaseDate;
     TextView platforms;
+    TextView age;
 
 
     @Override
@@ -53,15 +54,14 @@ public class GamePage extends AppCompatActivity {
 
         image=findViewById(R.id.page_image);
         name=findViewById(R.id.page_title);
-        genre=findViewById(R.id.page_genre);
-        subGenres=findViewById(R.id.page_subgenres);
+        genres=findViewById(R.id.page_genres);
         description=findViewById(R.id.page_description);
         developer=findViewById(R.id.page_developer);
         publisher=findViewById(R.id.page_publisher);
         series=findViewById(R.id.page_series);
         releaseDate=findViewById(R.id.page_release_date);
         platforms=findViewById(R.id.page_platforms);
-
+        age=findViewById(R.id.page_age);
         FirebaseAuth mAuth=FirebaseAuth.getInstance();
         FirebaseUser currentUser=mAuth.getCurrentUser();
 
@@ -85,7 +85,7 @@ public class GamePage extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (DocumentSnapshot document : task.getResult()) {
-                        List<String> listSubGenres = (List<String>) document.get("subGenres");
+                        List<String> listGenres = (List<String>) document.get("genre");
                         List<String> listPlatforms = (List<String>) document.get("platforms");
 
                         if (document.getString("name").equals(title)){
@@ -96,13 +96,11 @@ public class GamePage extends AppCompatActivity {
 
                             name.setText(document.getString("name"));
 
-                            genre.setText(document.getString("genre"));
-
-                            for (String sub_genre :listSubGenres){
-                                subGenres.append(sub_genre+",");
+                            for (String genre : listGenres){
+                                genres.append(genre+",");
                             }
-                            String fixedSubGenres=removeLast(subGenres.getText().toString());
-                            subGenres.setText(fixedSubGenres);
+                            String fixedGenres=removeLast(genres.getText().toString());
+                            genres.setText(fixedGenres);
 
                             description.setText(document.getString("description"));
 
@@ -121,10 +119,16 @@ public class GamePage extends AppCompatActivity {
                             String fixedPlatforms=removeLast(platforms.getText().toString());
                             platforms.setText(fixedPlatforms);
 
+                            age.setText(String.valueOf(document.getLong("age")));
 
+
+
+
+                            return;
 
 
                         }
+
                     }
                 } else {
                     Log.d("GameIntel", "Error getting documents: ", task.getException());
@@ -167,12 +171,6 @@ public class GamePage extends AppCompatActivity {
         builder.setTitle("Hello!");
         builder.setMessage("Have you signed up? be sure to, as you will be able to contribute to the library yourself and more cool stuff\nif you have already signed up be sure to log in");
 
-        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
         builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

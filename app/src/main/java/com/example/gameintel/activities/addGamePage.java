@@ -156,8 +156,11 @@ public class addGamePage extends AppCompatActivity {
                         String game_series=series.getText().toString();
 
 
-                        Game gameDetailes=new Game(game_name,game_search,"temp",game_developer,game_publisher,game_description,release_date_btn.getText().toString(),
-                                loadList("selectedgeneres"),game_series,loadList("platformslist"),image);
+                        Game gameDetailes=new Game(game_name,game_search,loadList("selectedgeneres"),game_developer,game_publisher,game_description,release_date_btn.getText().toString(),
+                                game_series,loadList("platformslist"),image,11);
+
+
+
 
 
                         database.collection("Games").document().set(gameDetailes);

@@ -48,10 +48,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/caravan"
-            android:text="Genre:"
+            android:text="Genres:"
             android:textColor="@color/common_google_signin_btn_text_dark_default"
             android:textSize="24sp"
-            tools:text="Genre:" />
+            tools:text="Genres:" />
 
         <ImageView
             android:id="@+id/line1"
@@ -61,36 +61,7 @@
             app:srcCompat="@drawable/linebetter" />
 
         <TextView
-            android:id="@+id/page_genre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/common_google_signin_btn_text_dark_default"
-            android:textSize="18sp"
-            tools:text="TextView" />
-
-        <android.support.v4.widget.Space
-            android:layout_width="8dp"
-            android:layout_height="30dp"  />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/caravan"
-            android:text="Sub Genres:"
-            android:textColor="@color/common_google_signin_btn_text_dark_default"
-            android:textSize="24sp"
-            tools:text="Sub Genres:" />
-
-        <ImageView
-            android:id="@+id/line2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            app:srcCompat="@drawable/linebetter" />
-
-        <TextView
-            android:id="@+id/page_subgenres"
+            android:id="@+id/page_genres"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/common_google_signin_btn_text_dark_default"
@@ -271,5 +242,38 @@
             android:textColor="@color/common_google_signin_btn_text_dark_default"
             android:textSize="18sp"
             tools:text="TextView" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="8dp"
+            android:layout_height="30dp"  />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/caravan"
+            android:text="Age"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textSize="24sp"
+            tools:text="Age" />
+
+        <ImageView
+            android:id="@+id/line13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            app:srcCompat="@drawable/linebetter" />
+
+        <TextView
+            android:id="@+id/page_age"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textSize="18sp"
+            tools:text="TextView" />
+
+
+
+
     </LinearLayout>
 </ScrollView>
