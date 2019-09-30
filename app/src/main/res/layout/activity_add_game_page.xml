@@ -71,14 +71,6 @@
             android:textColor="@color/common_google_signin_btn_text_dark_default"
             android:textColorHint="@color/common_google_signin_btn_text_dark_default" />
 
-        <Button
-            android:id="@+id/add_game_release_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="ENTER RELEASE DATE" />
-
         <EditText
             android:id="@+id/add_game_series"
             android:layout_width="match_parent"
@@ -89,37 +81,30 @@
             android:textColor="@color/common_google_signin_btn_text_dark_default"
             android:textColorHint="@color/common_google_signin_btn_text_dark_default" />
 
-        <TextView
-            android:id="@+id/editText10"
+        <EditText
+            android:id="@+id/add_game_age"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:ems="10"
-            android:gravity="center"
-            android:hint="Enter Release Date"
+            android:hint="Enter Age"
             android:inputType="textPersonName"
-            android:text="Select Genres"
             android:textColor="@color/common_google_signin_btn_text_dark_default"
-            android:textColorHint="@color/common_google_signin_btn_text_dark_default"
-            android:textSize="18sp" />
+            android:textColorHint="@color/common_google_signin_btn_text_dark_default" />
+
+        <Button
+            android:id="@+id/add_game_release_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="ENTER RELEASE DATE" />
 
         <Button
             android:id="@+id/geners_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="selet_Genres"
-            android:text="geners" />
-
-        <TextView
-            android:id="@+id/editText2"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Enter Release Date"
-            android:inputType="textPersonName"
-            android:text="Select Platforms"
-            android:textColor="@color/common_google_signin_btn_text_dark_default"
-            android:textSize="18sp" />
+            android:text="select geners" />
 
         <Button
             android:id="@+id/button"
@@ -127,14 +112,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="platforms_select"
-            android:text="Platforms" />
+            android:text="select Platforms" />
 
         <Button
             android:id="@+id/add_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="addGameButton"
-            android:text="Add Game" />
+            android:text="done" />
 
     </LinearLayout>
 </ScrollView>

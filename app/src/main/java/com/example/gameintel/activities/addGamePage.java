@@ -12,11 +12,13 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -30,6 +32,7 @@ import android.widget.Toast;
 import com.example.gameintel.R;
 import com.example.gameintel.classes.Game;
 import com.example.gameintel.classes.User;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.common.reflect.TypeToken;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -61,23 +64,7 @@ public class addGamePage extends AppCompatActivity {
     Button release_date_btn;
     EditText series;
     ImageView game_image;
-
-
-    CheckBox simulation;
-    CheckBox fighting;
-    CheckBox adventrue;
-    CheckBox survival;
-    CheckBox racing;
-    CheckBox fps;
-    CheckBox action;
-    CheckBox strategy;
-    CheckBox rpg;
-    CheckBox ps4;
-    CheckBox pc;
-    CheckBox ps3;
-    CheckBox xbox360;
-    CheckBox xbox_one;
-    CheckBox nintendo_switch;
+    EditText age;
 
     int Year;
     int Month;
@@ -114,6 +101,7 @@ public class addGamePage extends AppCompatActivity {
         release_date_btn=findViewById(R.id.add_game_release_btn);
         series=findViewById(R.id.add_game_series);
         geners_button=findViewById(R.id.geners_button);
+        age=findViewById(R.id.add_game_age);
 
 
 
@@ -154,16 +142,20 @@ public class addGamePage extends AppCompatActivity {
                         String game_publisher=publisher.getText().toString();
                         String game_description=description.getText().toString();
                         String game_series=series.getText().toString();
+                        int game_age=Integer.parseInt(age.getText().toString());
+                        List<String> geners = loadList("genres");
+                        List<String> platforms=loadList("platformslist");
 
 
-                        Game gameDetailes=new Game(game_name,game_search,loadList("selectedgeneres"),game_developer,game_publisher,game_description,release_date_btn.getText().toString(),
-                                game_series,loadList("platformslist"),image,11);
+                        //Game gameDetailes=new Game(game_name,game_search,geners,game_developer,game_publisher,game_description,release_date_btn.getText().toString(),
+                                //game_series,platforms,image,game_age);
+
+                        Game gameinfo=new Game(game_name,game_search,geners,game_developer,game_publisher,game_description,release_date_btn.getText().toString(),game_series,platforms,image,game_age);
 
 
+                        database.collection("Games").document().set(gameinfo);
 
-
-
-                        database.collection("Games").document().set(gameDetailes);
+                        
 
 
                     }
@@ -258,7 +250,7 @@ public class addGamePage extends AppCompatActivity {
         builder.setTitle("Choose genres");
 
         // Add a checkbox list
-        final String[] genres = {"simulation", "fighting", "adventrue", "survival", "racing","fps","action","strategy","rpg"};
+        final String[] genres = {"Simulation", "Fighting", "Adventrue", "Survival", "Racing","Fps","Action","Strategy","Rpg"};
         final List<String> selected_geners=new ArrayList<String>();
         selected_geners.clear();
         final boolean[] checkedItems=new boolean[9];
@@ -267,7 +259,7 @@ public class addGamePage extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 // The user checked or unchecked a box
-                Toast.makeText(addGamePage.this, "Position: " + which + " Value: " + genres[which] + " State: " + (isChecked ? "checked" : "unchecked"), Toast.LENGTH_LONG).show();
+                //Toast.makeText(addGamePage.this, "Position: " + which + " Value: " + genres[which] + " State: " + (isChecked ? "checked" : "unchecked"), Toast.LENGTH_LONG).show();
                 if (isChecked){
                     selected_geners.add(genres[which]);
                 }
@@ -284,7 +276,7 @@ public class addGamePage extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // The user clicked OK
-                saveList(selected_geners,"selectedgeneres");
+                saveList(selected_geners,"genre");
 
 
             }
@@ -299,19 +291,12 @@ public class addGamePage extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
     public void platforms_select(View view) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choose platforms");
 
         // Add a checkbox list
-        final String[] platforms = {"xbox 360", "xbox one", "ps4", "ps3", "pc","nintendo switch"};
+        final String[] platforms = {"Xbox 360", "Xbox One", "PS4", "PS3", "PC","Nintendo Switch"};
         final List<String> selected_platforms=new ArrayList<String>();
         selected_platforms.clear();
         final boolean[] checkedItems=new boolean[6];
@@ -320,7 +305,7 @@ public class addGamePage extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 // The user checked or unchecked a box
-                Toast.makeText(addGamePage.this, "Position: " + which + " Value: " + platforms[which] + " State: " + (isChecked ? "checked" : "unchecked"), Toast.LENGTH_LONG).show();
+                //Toast.makeText(addGamePage.this, "Position: " + which + " Value: " + platforms[which] + " State: " + (isChecked ? "checked" : "unchecked"), Toast.LENGTH_LONG).show();
                 if (isChecked){
                     selected_platforms.add(platforms[which]);
                 }

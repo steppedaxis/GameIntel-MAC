@@ -5,7 +5,7 @@ import java.util.List;
 public class Game {
     private String name;
     private String search_text;
-    private List<String> genres;
+    private List<String> genre;
     private String developer;
     private String publisher;
     private String description;
@@ -19,10 +19,10 @@ public class Game {
         //empty constructor needed
     }
 
-    public Game(String name,String search_text ,List<String> genres, String developer, String publisher, String description, String releaseDate , String series, List<String> platforms, String image,int age) {
+    public Game(String name,String search_text ,List<String> genre, String developer, String publisher, String description, String releaseDate , String series, List<String> platforms, String image,int age) {
         this.name = name;
         this.search_text=search_text;
-        this.genres = genres;
+        this.genre=genre;
         this.developer = developer;
         this.publisher = publisher;
         this.description = description;
@@ -37,8 +37,8 @@ public class Game {
         return name;
     }
 
-    private List<String> getGenres() {
-        return genres;
+    public List<String> getGenre() {
+        return genre;
     }
 
     public String getImage(){

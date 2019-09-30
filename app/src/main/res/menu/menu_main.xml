@@ -13,21 +13,28 @@
     </item>
 
 
+
     <item
         android:id="@+id/action_profile"
         android:title="Your Profile"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/profilepic"
+
+
         >
 
     </item>
+
 
     <item
-        android:id="@+id/add_game"
-        android:title="Add Game"
+        android:id="@+id/action_login"
+        android:title="Login Or Register"
+        android:icon="@drawable/icons8login"
+        app:showAsAction="ifRoom"
+
         >
 
     </item>
-
-
 
 
 </menu>

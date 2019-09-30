@@ -1,11 +1,20 @@
 package com.example.gameintel.activities;
 
 import android.app.AlertDialog;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.nfc.Tag;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +29,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.gameintel.R;
 import com.example.gameintel.classes.Game;
 import com.example.gameintel.classes.GameAdapter;
@@ -52,20 +64,18 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.client.HttpClient;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
+import okhttp3.internal.Util;
 
 public class GameList extends AppCompatActivity{
 
     static final String TAG="GameList";
     private FirebaseFirestore database=FirebaseFirestore.getInstance();
     private CollectionReference gameRef=database.collection("Games");
+    private CollectionReference userRef=database.collection("Users");
     private FirebaseAuth mAuth=FirebaseAuth.getInstance();
-    private ImageButton profileButton;
-    private ImageButton loginButton;
     private FirebaseUser currenrtUser;
 
 
@@ -76,8 +86,6 @@ public class GameList extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_list);
 
-        profileButton=findViewById(R.id.profileButton);
-        loginButton=findViewById(R.id.loginButton_list);
 
         currenrtUser=mAuth.getCurrentUser();
 
@@ -117,19 +125,6 @@ public class GameList extends AppCompatActivity{
     protected void onStart(){
         super.onStart();
         adapter.startListening();
-
-        FirebaseUser currentUser=mAuth.getCurrentUser();
-
-        //user not logged in
-        if (currentUser==null){
-            profileButton.setVisibility(View.GONE);
-        }
-        else{
-            profileButton.setVisibility(View.VISIBLE);
-            loginButton.setVisibility(View.GONE);
-
-        }
-
     }
 
     @Override
@@ -139,17 +134,6 @@ public class GameList extends AppCompatActivity{
     }
 
 
-    public void profileButton(View view) {
-            Intent intent=new Intent(this,UserPage.class);
-
-            startActivity(intent);
-    }
-
-    public void loginScreen(View view) {
-        Intent intent=new Intent(this,LoginScreen.class);
-        finish();
-        startActivity(intent);
-    }
 
 
 
@@ -161,8 +145,52 @@ public class GameList extends AppCompatActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
         //inflating menu_menu.xml
         getMenuInflater().inflate(R.menu.menu_main,menu);
-        //Searchview
+
         MenuItem item=menu.findItem(R.id.action_search);
+        final MenuItem profile=menu.findItem(R.id.action_profile);
+        MenuItem login_or_register=menu.findItem(R.id.action_login);
+
+
+        final FirebaseUser currentUser=mAuth.getCurrentUser();
+        if (currentUser==null){
+            profile.setVisible(false);
+            login_or_register.setVisible(true);
+        }
+        else{
+            profile.setVisible(true);
+            final String email=currentUser.getEmail();
+
+            userRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()){
+                        for (DocumentSnapshot document:task.getResult()){
+                            String userEmail = document.getString("email");
+                            if (userEmail.equals(email)){
+                                Glide.with(getApplicationContext())
+                                        .asBitmap()
+                                        .load(document.getString("image"))
+                                        .into(new SimpleTarget<Bitmap>() {
+                                            @Override
+                                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                                profile.setIcon(new BitmapDrawable(getResources(), getCroppedBitmap(resource)));
+                                            }
+                                        });
+
+                            }
+
+                        }
+                    }
+                }
+            });
+
+
+
+
+            login_or_register.setVisible(false);
+        }
+
+        //Searchview
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -187,8 +215,13 @@ public class GameList extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         //handels other menu called item clicks here
         if (item.getItemId()==R.id.action_profile){
-            Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
             Intent intent=new Intent(this,UserPage.class);
+            startActivity(intent);
+        }
+
+        if (item.getItemId()==R.id.action_login){
+            Intent intent=new Intent(this,LoginScreen.class);
             startActivity(intent);
         }
 
@@ -246,6 +279,29 @@ public class GameList extends AppCompatActivity{
             }
         });
         builder.show();
+    }
+
+
+    public Bitmap getCroppedBitmap(Bitmap bitmap) {
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
+                bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        // canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+        canvas.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2,
+                bitmap.getWidth() / 2, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+        //Bitmap _bmp = Bitmap.createScaledBitmap(output, 60, 60, false);
+        //return _bmp;
+        return output;
     }
 
 
