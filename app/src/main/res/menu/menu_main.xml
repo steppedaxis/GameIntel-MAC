@@ -2,6 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+
+
     <item
         android:id="@+id/action_search"
         android:title="Search Library"
@@ -19,6 +22,9 @@
         android:title="Your Profile"
         app:showAsAction="ifRoom"
         android:icon="@drawable/profilepic"
+        app:itemIconSize="20dp"
+
+
 
 
         >
@@ -31,6 +37,9 @@
         android:title="Login Or Register"
         android:icon="@drawable/icons8login"
         app:showAsAction="ifRoom"
+        app:itemIconSize="30dp"
+
+
 
         >
 

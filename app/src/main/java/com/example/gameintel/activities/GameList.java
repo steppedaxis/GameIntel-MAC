@@ -173,7 +173,7 @@ public class GameList extends AppCompatActivity{
                                         .into(new SimpleTarget<Bitmap>() {
                                             @Override
                                             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                                profile.setIcon(new BitmapDrawable(getResources(), getCroppedBitmap(resource)));
+                                                profile.setIcon(new BitmapDrawable(getResources(), changeSize(resource)));
                                             }
                                         });
 
@@ -299,9 +299,14 @@ public class GameList extends AppCompatActivity{
                 bitmap.getWidth() / 2, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(bitmap, rect, rect, paint);
-        //Bitmap _bmp = Bitmap.createScaledBitmap(output, 60, 60, false);
-        //return _bmp;
-        return output;
+        Bitmap _bmp = Bitmap.createScaledBitmap(output, 400,  400, false);
+        return _bmp;
+        //return output;
+    }
+
+    public Bitmap changeSize(Bitmap image){
+        Bitmap resized = Bitmap.createScaledBitmap(image, 500, 500, false);
+        return resized;
     }
 
 
