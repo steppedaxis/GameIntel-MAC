@@ -3,6 +3,7 @@ package com.example.gameintel.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,6 +49,8 @@ public class UserPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
+        ActionBar actionBar=getSupportActionBar();
+        setTitle("");
 
         mUserName=findViewById(R.id.userUserName);
         mName=findViewById(R.id.user_Name);
