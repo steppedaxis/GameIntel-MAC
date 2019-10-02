@@ -26,6 +26,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,10 +37,14 @@ import com.bumptech.glide.request.transition.Transition;
 import com.example.gameintel.R;
 import com.example.gameintel.classes.Game;
 import com.example.gameintel.classes.GameAdapter;
+import com.example.gameintel.classes.YouTubeApiConfig;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -80,6 +85,11 @@ public class GameList extends AppCompatActivity{
     private FirebaseUser currenrtUser;
 
 
+
+
+
+
+
     private GameAdapter adapter;
 
     @Override
@@ -88,7 +98,6 @@ public class GameList extends AppCompatActivity{
         setContentView(R.layout.activity_game_list);
         ActionBar actionBar=getSupportActionBar();
         setTitle("");
-
 
 
         currenrtUser=mAuth.getCurrentUser();

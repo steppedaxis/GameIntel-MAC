@@ -8,13 +8,20 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.gameintel.R;
+import com.example.gameintel.classes.YouTubeApiConfig;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -25,7 +32,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GamePage extends AppCompatActivity {
+public class GamePage extends YouTubeBaseActivity {
 
     private FirebaseFirestore database;
     private CollectionReference gameRef;
@@ -42,12 +49,72 @@ public class GamePage extends AppCompatActivity {
     TextView age;
 
 
+    YouTubePlayerView MyouTubePlayerView;
+    Button play_btn;
+    YouTubePlayer.OnInitializedListener MonInitializedListener;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_page_2);
-        ActionBar actionBar=getSupportActionBar();
         setTitle("");
+
+
+        play_btn=findViewById(R.id.page_play_btn);
+        MyouTubePlayerView=findViewById(R.id.page_gameTrailer);
+
+        /*
+        gameRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot document : task.getResult()) {
+                        String trailerURI=document.getString("trailerURL");
+                        MonInitializedListener=new YouTubePlayer.OnInitializedListener() {
+                            @Override
+                            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+                                youTubePlayer.loadVideo("W4hTJybfU7s");
+
+                            }
+
+                            @Override
+                            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+
+                            }
+                        };
+                    }
+                } else {
+                    Log.d("GameIntel", "Error getting documents: ", task.getException());
+                }
+            }
+        });
+
+
+        MonInitializedListener=new YouTubePlayer.OnInitializedListener() {
+            @Override
+            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+                youTubePlayer.loadVideo("W4hTJybfU7s");
+
+            }
+
+            @Override
+            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+
+            }
+        };
+
+
+
+        play_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyouTubePlayerView.initialize(YouTubeApiConfig.getApiKey(),MonInitializedListener);
+            }
+        });
+
+       */
 
         database=FirebaseFirestore.getInstance();
         gameRef=database.collection("Games");
@@ -90,6 +157,8 @@ public class GamePage extends AppCompatActivity {
                     for (DocumentSnapshot document : task.getResult()) {
                         List<String> listGenres = (List<String>) document.get("genre");
                         List<String> listPlatforms = (List<String>) document.get("platforms");
+                        final String trailerURL=document.getString("trailerURL");
+
 
                         if (document.getString("name").equals(title)){
 
@@ -123,6 +192,27 @@ public class GamePage extends AppCompatActivity {
                             platforms.setText(fixedPlatforms);
 
                             age.setText(String.valueOf(document.getLong("age")));
+
+
+                            //youtube trailer//
+                            MonInitializedListener=new YouTubePlayer.OnInitializedListener() {
+                                @Override
+                                public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+                                    youTubePlayer.cueVideo(trailerURL);
+
+
+                                }
+
+                                @Override
+                                public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+
+                                }
+                            };
+
+                            MyouTubePlayerView.initialize(YouTubeApiConfig.getApiKey(),MonInitializedListener);
+
+
+
 
 
 
