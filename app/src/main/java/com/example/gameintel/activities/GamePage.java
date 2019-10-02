@@ -108,7 +108,6 @@ public class GamePage extends YouTubeBaseActivity {
                     for (DocumentSnapshot document : task.getResult()) {
                         List<String> listGenres = (List<String>) document.get("genre");
                         List<String> listPlatforms = (List<String>) document.get("platforms");
-                        final String trailerURL=document.getString("trailerURL");
 
 
                         if (document.getString("name").equals(title)){
@@ -143,6 +142,8 @@ public class GamePage extends YouTubeBaseActivity {
                             platforms.setText(fixedPlatforms);
 
                             age.setText(String.valueOf(document.getLong("age")));
+
+                            final String trailerURL=getNeededPartFromURL(document.getString("trailerURL"));
 
 
                             //youtube trailer//
@@ -224,6 +225,25 @@ public class GamePage extends YouTubeBaseActivity {
 
 
     }
+
+
+    private String getNeededPartFromURL(String URL){
+        String neededPart="";
+
+
+        for (int i=0;i<URL.length();i++){
+            if (URL.charAt(i)=='='){
+                neededPart=URL.substring(i+1,URL.indexOf('&'));
+                break;
+
+            }
+        }
+
+        return  neededPart;
+    }
+
+
+
 
 
 
