@@ -65,56 +65,7 @@ public class GamePage extends YouTubeBaseActivity {
         play_btn=findViewById(R.id.page_play_btn);
         MyouTubePlayerView=findViewById(R.id.page_gameTrailer);
 
-        /*
-        gameRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (DocumentSnapshot document : task.getResult()) {
-                        String trailerURI=document.getString("trailerURL");
-                        MonInitializedListener=new YouTubePlayer.OnInitializedListener() {
-                            @Override
-                            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                                youTubePlayer.loadVideo("W4hTJybfU7s");
 
-                            }
-
-                            @Override
-                            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-
-                            }
-                        };
-                    }
-                } else {
-                    Log.d("GameIntel", "Error getting documents: ", task.getException());
-                }
-            }
-        });
-
-
-        MonInitializedListener=new YouTubePlayer.OnInitializedListener() {
-            @Override
-            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                youTubePlayer.loadVideo("W4hTJybfU7s");
-
-            }
-
-            @Override
-            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-
-            }
-        };
-
-
-
-        play_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MyouTubePlayerView.initialize(YouTubeApiConfig.getApiKey(),MonInitializedListener);
-            }
-        });
-
-       */
 
         database=FirebaseFirestore.getInstance();
         gameRef=database.collection("Games");
