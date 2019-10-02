@@ -50,7 +50,6 @@ public class GamePage extends YouTubeBaseActivity {
 
 
     YouTubePlayerView MyouTubePlayerView;
-    Button play_btn;
     YouTubePlayer.OnInitializedListener MonInitializedListener;
 
 
@@ -62,7 +61,6 @@ public class GamePage extends YouTubeBaseActivity {
         setTitle("");
 
 
-        play_btn=findViewById(R.id.page_play_btn);
         MyouTubePlayerView=findViewById(R.id.page_gameTrailer);
 
 
@@ -230,12 +228,15 @@ public class GamePage extends YouTubeBaseActivity {
     private String getNeededPartFromURL(String URL){
         String neededPart="";
 
-
         for (int i=0;i<URL.length();i++){
-            if (URL.charAt(i)=='='){
+
+            if (URL.charAt(i)=='=' && URL.contains("&")){
                 neededPart=URL.substring(i+1,URL.indexOf('&'));
                 break;
-
+            }
+            else if(URL.charAt(i)=='='){
+                neededPart=URL.substring(i+1);
+                break;
             }
         }
 

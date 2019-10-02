@@ -37,6 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="left"
+            android:src="@drawable/linebetter"
             app:srcCompat="@drawable/linebetter" />
 
         <android.support.v4.widget.Space
@@ -58,6 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:src="@drawable/linebetter"
             app:srcCompat="@drawable/linebetter" />
 
         <TextView
@@ -87,6 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:src="@drawable/linebetter"
             app:srcCompat="@drawable/linebetter" />
 
         <TextView
@@ -117,6 +120,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:src="@drawable/linebetter"
             app:srcCompat="@drawable/linebetter" />
 
         <TextView
@@ -146,6 +150,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:src="@drawable/linebetter"
             app:srcCompat="@drawable/linebetter" />
 
         <TextView
@@ -175,6 +180,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:src="@drawable/linebetter"
             app:srcCompat="@drawable/linebetter" />
 
         <TextView
@@ -204,6 +210,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:src="@drawable/linebetter"
             app:srcCompat="@drawable/linebetter" />
 
         <TextView
@@ -233,6 +240,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:src="@drawable/linebetter"
             app:srcCompat="@drawable/linebetter" />
 
         <TextView
@@ -262,6 +270,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:src="@drawable/linebetter"
             app:srcCompat="@drawable/linebetter" />
 
         <TextView
@@ -272,19 +281,40 @@
             android:textSize="18sp"
             tools:text="TextView" />
 
-        <com.google.android.youtube.player.YouTubePlayerView
+        <android.support.v4.widget.Space
+            android:layout_width="8dp"
+            android:layout_height="30dp"  />
 
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/caravan"
+            android:text="Trailer"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textSize="24sp"
+            tools:text="Trailer" />
+
+        <ImageView
+            android:id="@+id/line14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:src="@drawable/linebetter"
+            app:srcCompat="@drawable/linebetter" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="8dp"
+            android:layout_height="20dp"  />
+
+        <com.google.android.youtube.player.YouTubePlayerView
             android:id="@+id/page_gameTrailer"
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content" />
 
-        <Button
-            android:id="@+id/page_play_btn"
-            android:layout_width="match_parent"
 
-            android:layout_height="wrap_content"
-            android:text="Play Trailer" />
+
+
 
 
 
