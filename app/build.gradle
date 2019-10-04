@@ -10,6 +10,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        android.defaultConfig.vectorDrawables.useSupportLibrary=true
     }
     buildTypes {
         release {
@@ -46,6 +47,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'org.jetbrains:annotations-java5:15.0'
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
+
 }
 
 apply plugin: 'com.google.gms.google-services'

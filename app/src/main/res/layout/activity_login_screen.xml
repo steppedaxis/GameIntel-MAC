@@ -7,27 +7,10 @@
     android:background="@drawable/backgroundfinal"
     tools:context=".activities.LoginScreen">
 
-    <Button
-        android:id="@+id/registerButton2"
-        android:layout_width="121dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/buttonshape"
-        android:onClick="forgotPassButton"
-        android:text="Forgot My Password"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/ConfirmButton"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/registerButton"
-        app:layout_constraintTop_toBottomOf="@+id/ConfirmButton"
-        app:layout_constraintVertical_bias="0.15"
-        tools:text="Forgot My Password" />
-
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="206dp"
+        android:layout_width="380dp"
+        android:layout_height="220dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginEnd="16dp"
@@ -65,7 +48,8 @@
             android:layout_height="wrap_content"
             android:textColorHint="@color/hintColor"
             app:errorEnabled="true"
-            app:passwordToggleEnabled="true">
+            app:passwordToggleEnabled="true"
+            >
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/passText"
@@ -74,7 +58,19 @@
                 android:hint="@string/hint2"
                 android:inputType="textPassword"
                 android:textAllCaps="true"
+                android:textColor="@color/common_google_signin_btn_text_dark_default"
                 android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/registerButton2"
+                android:layout_width="176dp"
+                android:layout_height="20dp"
+                android:background="@drawable/gradient"
+                android:onClick="forgotPassButton"
+                android:text="Forgot My Password"
+                android:textColor="@color/common_google_signin_btn_text_dark_default"
+                tools:text="Forgot My Password" />
+
         </android.support.design.widget.TextInputLayout>
 
 
@@ -82,44 +78,37 @@
 
     <Button
         android:id="@+id/ConfirmButton"
-        android:layout_width="wrap_content"
-        android:layout_height="42dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="112dp"
+        android:layout_width="122dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/buttonshape"
         android:onClick="loginButton"
         android:text="@string/loginText"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <Button
         android:id="@+id/registerButton"
         android:layout_width="121dp"
         android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/buttonshape"
         android:onClick="registerButton"
         android:text="@string/registerButton"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/ConfirmButton"
-        app:layout_constraintTop_toBottomOf="@+id/ConfirmButton"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ConfirmButton" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -127,11 +116,11 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="260dp"
-        android:layout_height="187dp"
-        android:layout_marginTop="64dp"
+        android:layout_width="261dp"
+        android:layout_height="137dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.463"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logotwo" />

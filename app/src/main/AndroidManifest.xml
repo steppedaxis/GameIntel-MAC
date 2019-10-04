@@ -12,13 +12,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.addGamePage"></activity>
-        <activity android:name=".activities.GameList">
+        <activity android:name=".activities.SplashScreen"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".activities.addGamePage" />
+        <activity android:name=".activities.GameList">
+
         </activity>
         <activity android:name=".activities.GamePage" />
         <activity
@@ -29,7 +34,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.LoginScreen"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

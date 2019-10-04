@@ -20,6 +20,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -107,9 +111,6 @@ public class LoginScreen extends AppCompatActivity {
             //if the email or password fields are empty, then exit the attemptLogin() method
             Toast.makeText(this, "user or password field are empty", Toast.LENGTH_SHORT).show();
             return;
-        }else{
-            //else, show a toast messege
-            Toast.makeText(this, "login in progress", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -132,11 +133,24 @@ public class LoginScreen extends AppCompatActivity {
                 }
                 // the else if (!task.isSuccessful()) code block handles whether the server was not able to login the user
                 else if (!task.isSuccessful()) {
-                    Log.d("GameIntel", "could not sign in: " + task.getException());
-                    showErrorDialog("could not sign in: " + task.getException());
+                    try {
+                        throw task.getException();
+                    } catch(FirebaseAuthInvalidUserException e) {
+                        spinner.setVisibility(View.GONE);
+                        showErrorDialog("Wrong email address or disabled account, please try to recover your account by tapping on \"Forgot My Password\"");
+                        mPassView.requestFocus();
+                    } catch(FirebaseAuthInvalidCredentialsException e) {
+                        spinner.setVisibility(View.GONE);
+                        showErrorDialog("Wrong password");
+                        mPassView.requestFocus();
+                    } catch(Exception e) {
+                        spinner.setVisibility(View.GONE);
+                        Log.e("error", e.getMessage());
+                    }
                     return;
                 }
                 else if (!user.isEmailVerified()){
+                    spinner.setVisibility(View.GONE);
                     showErrorDialog("Your mail is not verified, please verify it to log in");
                     user.sendEmailVerification();
                     Toast.makeText(LoginScreen.this,"A verification email was sent to your email",Toast.LENGTH_SHORT).show();
@@ -158,7 +172,6 @@ public class LoginScreen extends AppCompatActivity {
 
     public void forgotPassButton(View view) {
          showAddItemDialog(LoginScreen.this);
-
     }
 
     private void showAddItemDialog(Context c) {
@@ -186,8 +199,12 @@ public class LoginScreen extends AppCompatActivity {
                                                 }
                                             });
                                         }
+                                        else{
+                                            showErrorDialog("provided email does not exist in our systems, please double check the email provided or create an account");
+                                        }
                                     }
                                 }
+
                             }
                         });
 
