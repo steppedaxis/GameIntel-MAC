@@ -50,8 +50,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
@@ -281,7 +283,7 @@ public class GameList extends AppCompatActivity{
         AlertDialog.Builder builder=new AlertDialog.Builder(GameList.this);
         builder.setCancelable(true);
         builder.setTitle("Hello!");
-        builder.setMessage("Have you signed up? be sure to, as you will be able to contribute to the library yourself and more cool stuff\nif you have already signed up be sure to log in");
+        builder.setMessage("Have you signed up? be sure to, as you will be able to contribute to the library yourself and more cool stuff");
 
         builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -304,9 +306,7 @@ public class GameList extends AppCompatActivity{
     }
 
 
-    public void addToFavorites(String gameName){
 
-    }
 
 
 

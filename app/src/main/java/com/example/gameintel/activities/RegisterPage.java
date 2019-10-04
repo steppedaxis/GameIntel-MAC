@@ -47,7 +47,9 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import io.grpc.Context;
 
@@ -346,7 +348,8 @@ public class RegisterPage extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 Log.d("GameIntel","user creation complete "+task.isSuccessful());
                 Toast.makeText(RegisterPage.this, "Registration attempt successful", Toast.LENGTH_SHORT).show();
-                WriteUserToFirestore(pickedImageUri);
+                String userID=mAuth.getCurrentUser().getUid();
+                WriteUserToFirestore(pickedImageUri,userID);
                 final FirebaseUser user=mAuth.getCurrentUser();
                 user.sendEmailVerification();
                 Intent intent = new Intent(RegisterPage.this,LoginScreen.class);
@@ -384,7 +387,7 @@ public class RegisterPage extends AppCompatActivity {
     }
 
 
-    private void WriteUserToFirestore(Uri pickedImageUri) {
+    private void WriteUserToFirestore(Uri pickedImageUri, final String userID) {
 
         String userName = mUserNameView.getText().toString();
 
@@ -398,11 +401,12 @@ public class RegisterPage extends AppCompatActivity {
             String Name=mNameView.getText().toString();
             String BirthYear=mBirthDateView.getText().toString();
             int Age=AgeCalculator(BirthYear);
+            List<String> favoriteGames = new ArrayList<>();
 
-            User userdetails=new User(userName,Name,email,Age,BirthYear,image);
+            User userdetails=new User(userName,Name,email,Age,BirthYear,image,favoriteGames);
 
             // Add a new document with a generated ID
-            mFirestore.collection("Users").document().set(userdetails);
+            mFirestore.collection("Users").document(userID).set(userdetails);
         } else{
 
             imageFilePath.putFile(pickedImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -422,11 +426,13 @@ public class RegisterPage extends AppCompatActivity {
                             String Name=mNameView.getText().toString();
                             String BirthYear=mBirthDateView.getText().toString();
                             int Age=AgeCalculator(BirthYear);
+                            List<String> favoriteGames = new ArrayList<>();
 
-                            User userdetails=new User(userName,Name,email,Age,BirthYear,image);
+
+                            User userdetails=new User(userName,Name,email,Age,BirthYear,image,favoriteGames);
 
                             // Add a new document with a generated ID
-                            mFirestore.collection("Users").document().set(userdetails);
+                            mFirestore.collection("Users").document(userID).set(userdetails);
 
                         }
 

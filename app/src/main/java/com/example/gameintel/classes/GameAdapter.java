@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,9 +17,17 @@ import com.example.gameintel.R;
 import com.example.gameintel.activities.GamePage;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.List;
 
 
 public class GameAdapter extends FirestoreRecyclerAdapter<Game, GameAdapter.GameHolder> {
@@ -25,25 +35,52 @@ public class GameAdapter extends FirestoreRecyclerAdapter<Game, GameAdapter.Game
     private OnItemClickListener listener;
     private Context context;
     private FirebaseAuth mAuth=FirebaseAuth.getInstance();
+    private FirebaseFirestore database=FirebaseFirestore.getInstance();
 
     public GameAdapter(@NonNull FirestoreRecyclerOptions<Game> options) {
         super(options);
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull GameHolder holder, int position, @NonNull final Game model) {
+    protected void onBindViewHolder(@NonNull final GameHolder holder, int position, @NonNull final Game model) {
         holder.mTitleView.setText(model.getName());
         holder.mPublisherView.setText(model.getPublisher());
 
-        FirebaseUser currenrtUser=mAuth.getCurrentUser();
+        final FirebaseUser currenrtUser=mAuth.getCurrentUser();
         if (currenrtUser==null){
             holder.favoriteIcon.setVisibility(View.GONE);
-        }else{
-            holder.favoriteIcon.setVisibility(View.VISIBLE);
+            holder.unfavoriteIcon.setVisibility(View.GONE);
         }
 
+        database.collection("Users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    String title=model.getName();
+                    for (DocumentSnapshot document:task.getResult()){
 
-       Glide.with(holder.mImageView.getContext())
+                        if(document.getId().equals(currenrtUser.getUid())){
+                            List<String> favoritelist=(List<String>) document.get("favoriteGames");
+                            for (String favorite:favoritelist){
+                                if (favorite.equals(title)){
+                                    holder.unfavoritebutton.setVisibility(View.VISIBLE);
+                                }else{
+                                    holder.unfavoritebutton.setVisibility(View.GONE);
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+            }
+        });
+
+
+
+
+
+        Glide.with(holder.mImageView.getContext())
                .load(model.getImage())
                .into(holder.mImageView);
 
@@ -61,7 +98,11 @@ public class GameAdapter extends FirestoreRecyclerAdapter<Game, GameAdapter.Game
        TextView mTitleView;
        ImageView mImageView;
        TextView mPublisherView;
-       ImageView favoriteIcon;
+       ImageButton favoriteIcon;
+       ImageButton unfavoriteIcon;
+       TextView unfavoriteText;
+       Button unfavoritebutton;
+
 
         public GameHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,7 +110,9 @@ public class GameAdapter extends FirestoreRecyclerAdapter<Game, GameAdapter.Game
             mImageView=itemView.findViewById(R.id.gameImage);
             mPublisherView=itemView.findViewById(R.id.gamePublisher);
             favoriteIcon=itemView.findViewById(R.id.favorite);
-
+            unfavoriteIcon=itemView.findViewById(R.id.unfavorite);
+            unfavoriteText=itemView.findViewById(R.id.unfavoritetext);
+            unfavoritebutton=itemView.findViewById(R.id.unfavoritebutton);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -79,6 +122,15 @@ public class GameAdapter extends FirestoreRecyclerAdapter<Game, GameAdapter.Game
                     passData(name);
                     listener.onItemClick(getSnapshots().getSnapshot(position),name,position);
 
+                }
+            });
+
+
+            favoriteIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String name=mTitleView.getText().toString();
+                    addToFavorites(name);
                 }
             });
 
@@ -103,7 +155,19 @@ public class GameAdapter extends FirestoreRecyclerAdapter<Game, GameAdapter.Game
         context.startActivity(intent);
     }
 
+    public void addToFavorites(String gameName){
+        FirebaseUser currentUser=mAuth.getCurrentUser();
+        String userID=currentUser.getUid();
+        DocumentReference currentUserRef=database.collection("Users").document(userID);
+        currentUserRef.update("favoriteGames", FieldValue.arrayUnion(gameName));
+    }
 
+    public void removeFromFavorites(String gameName){
+        FirebaseUser currentUser=mAuth.getCurrentUser();
+        String userID=currentUser.getUid();
+        DocumentReference currentUserRef=database.collection("Users").document(userID);
+        currentUserRef.update("favoriteGames", FieldValue.arrayRemove(gameName));
+    }
 
 
 
