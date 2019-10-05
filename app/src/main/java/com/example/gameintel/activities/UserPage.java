@@ -187,7 +187,7 @@ public class UserPage extends AppCompatActivity {
 
     public void addGameButton(View view) {
         Intent intent=new Intent(this,addGamePage.class);
-        
+        finish();
         startActivity(intent);
 
     }

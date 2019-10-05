@@ -77,6 +77,14 @@
                 android:textColor="@color/common_google_signin_btn_text_dark_pressed"
                 android:textSize="18sp" />
 
+            <ImageView
+                android:id="@+id/line6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:src="@drawable/linebetter"
+                app:srcCompat="@drawable/linebetter" />
+
             <TextView
                 android:id="@+id/userEmail"
                 android:layout_width="match_parent"
@@ -86,6 +94,14 @@
                 android:text="user_email"
                 android:textColor="@color/common_google_signin_btn_text_dark_pressed"
                 android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/line7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:src="@drawable/linebetter"
+                app:srcCompat="@drawable/linebetter" />
 
             <TextView
                 android:id="@+id/userAge"
@@ -97,6 +113,14 @@
                 android:textColor="@color/common_google_signin_btn_text_dark_pressed"
                 android:textSize="18sp" />
 
+            <ImageView
+                android:id="@+id/line8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:src="@drawable/linebetter"
+                app:srcCompat="@drawable/linebetter" />
+
             <TextView
                 android:id="@+id/userBirthDate"
                 android:layout_width="match_parent"
@@ -106,6 +130,14 @@
                 android:text="user_date"
                 android:textColor="@color/common_google_signin_btn_text_dark_pressed"
                 android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/line9"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:src="@drawable/linebetter"
+                app:srcCompat="@drawable/linebetter" />
 
             <TextView
                 android:id="@+id/userVerifyEmail"
@@ -117,6 +149,14 @@
                 android:textColor="@color/common_google_signin_btn_text_dark_pressed"
                 android:textSize="18sp" />
 
+            <ImageView
+                android:id="@+id/line10"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:src="@drawable/linebetter"
+                app:srcCompat="@drawable/linebetter" />
+
             <TextView
                 android:id="@+id/userFavorites"
                 android:layout_width="match_parent"
@@ -124,7 +164,10 @@
                 android:fontFamily="@font/futura"
                 android:gravity="center|center_horizontal"
                 android:textColor="@color/common_google_signin_btn_text_dark_pressed"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                tools:text="user_favorites" />
+
+
 
             <android.support.v4.widget.Space
                 android:layout_width="8dp"

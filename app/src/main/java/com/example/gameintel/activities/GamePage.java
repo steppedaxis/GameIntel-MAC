@@ -212,7 +212,7 @@ public class GamePage extends YouTubeBaseActivity {
         AlertDialog.Builder builder=new AlertDialog.Builder(GamePage.this);
         builder.setCancelable(true);
         builder.setTitle("Hello!");
-        builder.setMessage("Have you signed up? be sure to, as you will be able to contribute to the library yourself and more cool stuff\nif you have already signed up be sure to log in");
+        builder.setMessage("Have you signed up? be sure to, as you will be able to contribute to the library yourself and select and keep your favorite games!");
 
         builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
             @Override
@@ -241,7 +241,6 @@ public class GamePage extends YouTubeBaseActivity {
         }
 
 
-        //https://youtu.be/-o7rES_3ymA
 
         return  neededPart;
     }
