@@ -102,6 +102,8 @@ public class GameList extends AppCompatActivity{
         ActionBar actionBar=getSupportActionBar();
         setTitle("");
 
+        Intent intent=getIntent();
+
 
         currenrtUser=mAuth.getCurrentUser();
 
