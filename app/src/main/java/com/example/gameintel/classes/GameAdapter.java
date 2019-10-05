@@ -48,8 +48,8 @@ public class GameAdapter extends FirestoreRecyclerAdapter<Game, GameAdapter.Game
 
         FirebaseUser currenrtUser=mAuth.getCurrentUser();
         if (currenrtUser==null){
-            holder.favoriteIcon.setVisibility(View.GONE);
-            holder.unfavoriteIcon.setVisibility(View.GONE);
+            holder.unfavoritebutton.setVisibility(View.GONE);
+            holder.favoritebutton.setVisibility(View.GONE);
         }
         else{
             database.collection("Users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -111,8 +111,6 @@ public class GameAdapter extends FirestoreRecyclerAdapter<Game, GameAdapter.Game
             mTitleView=itemView.findViewById(R.id.gameName);
             mImageView=itemView.findViewById(R.id.gameImage);
             mPublisherView=itemView.findViewById(R.id.gamePublisher);
-            favoriteIcon=itemView.findViewById(R.id.favorite);
-            unfavoriteIcon=itemView.findViewById(R.id.unfavorite);
             unfavoritebutton=itemView.findViewById(R.id.unfavoritebutton);
             favoritebutton=itemView.findViewById(R.id.favoritebutton);
 

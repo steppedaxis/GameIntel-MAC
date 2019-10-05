@@ -28,6 +28,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 
+import java.util.List;
+
 public class UserPage extends AppCompatActivity {
 
     private static final int IMAGE_REQUEST=1;
@@ -40,6 +42,7 @@ public class UserPage extends AppCompatActivity {
     TextView mUserAge;
     TextView mBirthDate;
     TextView verifyedEmail;
+    TextView favorites;
 
     FirebaseAuth firebaseAuth;
     FirebaseFirestore mFireStore;
@@ -59,6 +62,7 @@ public class UserPage extends AppCompatActivity {
         mBirthDate=findViewById(R.id.userBirthDate);
         verifyedEmail=findViewById(R.id.userVerifyEmail);
         mUserPic=findViewById(R.id.user_image);
+        favorites=findViewById(R.id.userFavorites);
 
         firebaseAuth=FirebaseAuth.getInstance();
         mFireStore=FirebaseFirestore.getInstance();
@@ -104,6 +108,7 @@ public class UserPage extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (DocumentSnapshot document : task.getResult()) {
+                        List<String> listFavorites = (List<String>) document.get("favoriteGames");
                         String userEmail = document.getString("email");
                         if (userEmail.equals(email)) {
                             Glide.with(mUserPic.getContext())
@@ -113,6 +118,15 @@ public class UserPage extends AppCompatActivity {
                            mName.setText("Name: "+document.getString("name"));
                            mUserAge.setText("Age: "+document.getLong("age"));
                            mBirthDate.setText("Birth Date: "+document.getString("birthdateYear"));
+
+                            for (String favorite : listFavorites){
+                                favorites.append(favorite+",");
+                            }
+                            String fixedFavorites=removeLast(favorites.getText().toString());
+                            favorites.setText("Your Favorite Games:\n"+fixedFavorites);
+
+
+
                             return;
                         }
                     }
@@ -177,4 +191,13 @@ public class UserPage extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    public String removeLast(String str) {
+        if (str != null && str.length() > 0 && str.charAt(str.length() - 1) == ',') {
+            str = str.substring(0, str.length() - 1);
+        }
+        return str;
+    }
+
+
 }

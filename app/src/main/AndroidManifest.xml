@@ -12,9 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.SplashScreen"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            >
+        <activity
+            android:name=".activities.SplashScreen"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,9 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.addGamePage" />
-        <activity android:name=".activities.GameList">
-
-        </activity>
+        <activity android:name=".activities.GameList"></activity>
         <activity android:name=".activities.GamePage" />
         <activity
             android:name=".activities.RegisterPage"
