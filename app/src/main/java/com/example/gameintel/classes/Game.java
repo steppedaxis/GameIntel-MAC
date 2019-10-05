@@ -14,12 +14,13 @@ public class Game {
     private List<String> platforms;
     private String image;
     private int age;
+    private String trailerURL;
 
     public Game(){
         //empty constructor needed
     }
 
-    public Game(String name,String search_text ,List<String> genre, String developer, String publisher, String description, String releaseDate , String series, List<String> platforms, String image,int age) {
+    public Game(String name,String search_text ,List<String> genre, String developer, String publisher, String description, String releaseDate , String series, List<String> platforms, String image,int age,String trailerURL) {
         this.name = name;
         this.search_text=search_text;
         this.genre=genre;
@@ -31,6 +32,7 @@ public class Game {
         this.platforms = platforms;
         this.image = image;
         this.age=age;
+        this.trailerURL=trailerURL;
     }
 
     public String getName() {
@@ -77,5 +79,7 @@ public class Game {
         return age;
     }
 
-
+    public String getTrailerURL() {
+        return trailerURL;
+    }
 }

@@ -46,39 +46,38 @@ public class GameAdapter extends FirestoreRecyclerAdapter<Game, GameAdapter.Game
         holder.mTitleView.setText(model.getName());
         holder.mPublisherView.setText(model.getPublisher());
 
-        final FirebaseUser currenrtUser=mAuth.getCurrentUser();
+        FirebaseUser currenrtUser=mAuth.getCurrentUser();
         if (currenrtUser==null){
             holder.favoriteIcon.setVisibility(View.GONE);
             holder.unfavoriteIcon.setVisibility(View.GONE);
         }
+        else{
+            database.collection("Users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()){
+                        String title=model.getName();
+                        for (DocumentSnapshot document:task.getResult()){
+                            FirebaseUser currenrtUser=mAuth.getCurrentUser();
 
-        database.collection("Users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()){
-                    String title=model.getName();
-                    for (DocumentSnapshot document:task.getResult()){
-
-                        if(document.getId().equals(currenrtUser.getUid())){
-                            List<String> favoritelist=(List<String>) document.get("favoriteGames");
-                            for (String favorite:favoritelist){
-                                if (favorite.equals(title)){
-                                    holder.unfavoritebutton.setVisibility(View.VISIBLE);
-                                }else{
-                                    holder.unfavoritebutton.setVisibility(View.GONE);
+                            if(document.getId().equals(currenrtUser.getUid())){
+                                List<String> favoritelist=(List<String>) document.get("favoriteGames");
+                                for (String favorite:favoritelist){
+                                    if (favorite.equals(title)){
+                                        holder.unfavoritebutton.setVisibility(View.VISIBLE);
+                                    }else{
+                                        holder.unfavoritebutton.setVisibility(View.GONE);
+                                    }
                                 }
                             }
+
                         }
 
                     }
-
                 }
-            }
-        });
+            });
 
-
-
-
+        }
 
         Glide.with(holder.mImageView.getContext())
                .load(model.getImage())
@@ -94,13 +93,14 @@ public class GameAdapter extends FirestoreRecyclerAdapter<Game, GameAdapter.Game
         return new GameHolder(v);
     }
 
+
+
     class GameHolder extends RecyclerView.ViewHolder{
        TextView mTitleView;
        ImageView mImageView;
        TextView mPublisherView;
        ImageButton favoriteIcon;
        ImageButton unfavoriteIcon;
-       TextView unfavoriteText;
        Button unfavoritebutton;
 
 
@@ -111,7 +111,6 @@ public class GameAdapter extends FirestoreRecyclerAdapter<Game, GameAdapter.Game
             mPublisherView=itemView.findViewById(R.id.gamePublisher);
             favoriteIcon=itemView.findViewById(R.id.favorite);
             unfavoriteIcon=itemView.findViewById(R.id.unfavorite);
-            unfavoriteText=itemView.findViewById(R.id.unfavoritetext);
             unfavoritebutton=itemView.findViewById(R.id.unfavoritebutton);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -125,7 +124,6 @@ public class GameAdapter extends FirestoreRecyclerAdapter<Game, GameAdapter.Game
                 }
             });
 
-
             favoriteIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -133,6 +131,9 @@ public class GameAdapter extends FirestoreRecyclerAdapter<Game, GameAdapter.Game
                     addToFavorites(name);
                 }
             });
+
+
+
 
 
         }

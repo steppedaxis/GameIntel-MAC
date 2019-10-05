@@ -66,6 +66,7 @@ public class addGamePage extends AppCompatActivity {
     EditText series;
     ImageView game_image;
     EditText age;
+    EditText trailerURL;
 
     int Year;
     int Month;
@@ -105,6 +106,7 @@ public class addGamePage extends AppCompatActivity {
         series=findViewById(R.id.add_game_series);
         geners_button=findViewById(R.id.geners_button);
         age=findViewById(R.id.add_game_age);
+        trailerURL=findViewById(R.id.add_game_trailerURL);
 
 
 
@@ -123,6 +125,7 @@ public class addGamePage extends AppCompatActivity {
         String game_name=name.getText().toString();
 
         //need to first upload user picture to firebase storage and get url
+        //refrences to storage and storage folders
         mStorage = FirebaseStorage.getInstance().getReference().child("game Images");
         final StorageReference imageFilePath= mStorage.child(game_name+" coverArt");
         imageFilePath.putFile(pickedImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -146,14 +149,15 @@ public class addGamePage extends AppCompatActivity {
                         String game_description=description.getText().toString();
                         String game_series=series.getText().toString();
                         int game_age=Integer.parseInt(age.getText().toString());
-                        List<String> geners = loadList("genres");
+                        String game_trailer_url=trailerURL.getText().toString();
+                        List<String> geners = loadList("genre");
                         List<String> platforms=loadList("platformslist");
 
 
                         //Game gameDetailes=new Game(game_name,game_search,geners,game_developer,game_publisher,game_description,release_date_btn.getText().toString(),
                                 //game_series,platforms,image,game_age);
 
-                        Game gameinfo=new Game(game_name,game_search,geners,game_developer,game_publisher,game_description,release_date_btn.getText().toString(),game_series,platforms,image,game_age);
+                        Game gameinfo=new Game(game_name,game_search,geners,game_developer,game_publisher,game_description,release_date_btn.getText().toString(),game_series,platforms,image,game_age,game_trailer_url);
 
 
                         database.collection("Games").document().set(gameinfo);

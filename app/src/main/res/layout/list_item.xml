@@ -96,19 +96,6 @@
         app:layout_constraintTop_toBottomOf="@+id/line"
         app:srcCompat="@drawable/ic_favorite_border_black_24dp" />
 
-    <TextView
-        android:id="@+id/unfavoritetext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="77dp"
-        android:layout_marginLeft="77dp"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/gameImage"
-        app:layout_constraintTop_toBottomOf="@+id/gamePublisher" />
-
     <Button
         android:id="@+id/unfavoritebutton"
         android:layout_width="76dp"
@@ -123,5 +110,7 @@
         app:layout_constraintHorizontal_bias="0.238"
         app:layout_constraintStart_toEndOf="@+id/gameImage"
         app:layout_constraintTop_toBottomOf="@+id/gamePublisher" />
+
+
 
 </android.support.constraint.ConstraintLayout>

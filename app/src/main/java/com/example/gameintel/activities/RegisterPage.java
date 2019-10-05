@@ -53,6 +53,11 @@ import java.util.List;
 
 import io.grpc.Context;
 
+import static java.lang.Character.isDigit;
+import static java.lang.Character.isLetter;
+import static java.lang.Character.isLowerCase;
+import static java.lang.Character.isUpperCase;
+
 public class RegisterPage extends AppCompatActivity {
 
     static final int DIALOG_ID=0;
@@ -226,7 +231,6 @@ public class RegisterPage extends AppCompatActivity {
 
         // Check for a valid password, if the user entered one.
         if (TextUtils.isEmpty(password) || !isPasswordValid(password)) {
-            mPasswordView.setError("Password invalid or empty");
             focusView = mPasswordView;
             cancel = true;
         }
@@ -278,12 +282,49 @@ public class RegisterPage extends AppCompatActivity {
 
 
     private boolean isPasswordValid(String password) {
+        Boolean Flag=false;
+        Boolean UpLetter=false;
+        Boolean LowLetter=false;
+        Boolean HasNum=false;
+        Boolean NoChars=false;
         //this code block checks both conditions and returns true if they both happen, else returns false if one of them or both does not happen
-        if (password.length()>4){
-            return true;
-        }else{
-            return false;
+        if (password.length()>5){
+            for(int i=0;i<password.length();i++){
+                if(isLowerCase(password.charAt(i))){//checks that the password contains lower letters
+                    LowLetter=true;
+                }
+                if(isUpperCase(password.charAt(i))){//checks that the password contains upper letters
+                    UpLetter=true;
+                }
+                if(isDigit(password.charAt(i))){//checks that the password contains numbers
+                    HasNum=true;
+                }
+                //checks that the password contains only letters and digits
+                if(!isLetter(password.charAt(i))&&isDigit(password.charAt(i))){
+                    NoChars=true;
+                }
+            }
         }
+        if(LowLetter==true && UpLetter==true && HasNum==true && NoChars==true) {//if all conditions are ok then the flag will be changed to true
+            Flag = true;
+        }//if one of the conditions is not ok a prompt will appear saying what is wrong
+        else if(!LowLetter){
+            mPasswordView.setError("Password does not contain lower letters");
+            //Toast.makeText(this, "Password does not contain lower letters ", Toast.LENGTH_SHORT).show();
+        }
+        else if(!UpLetter){
+            mPasswordView.setError("Password does not contain upper letters");
+            //Toast.makeText(this, "Password does not contain upper letters ", Toast.LENGTH_SHORT).show();
+        }
+        else if(!HasNum) {
+            mPasswordView.setError("Password does not contain digits ");
+            //Toast.makeText(this, "Password does not contain digits ", Toast.LENGTH_SHORT).show();
+        }
+        else if(!NoChars){
+            mPasswordView.setError("Password must contain only digits and upper,lower case letters ");
+            //Toast.makeText(this, "Password must contain only digits and upper,lower case letters ", Toast.LENGTH_SHORT).show();
+        }
+        return Flag;//returns the flag (password valid or invalid)
     }
 
 
@@ -315,9 +356,9 @@ public class RegisterPage extends AppCompatActivity {
         for (int i=0;i<password.length();i++) {   //encryption for the password
             char ch;
             int num;
-            if (Character.isLetter(password.charAt(i))) {
+            if (isLetter(password.charAt(i))) {
                 ch = password.charAt(i);
-                if (Character.isUpperCase(ch)) {
+                if (isUpperCase(ch)) {
                     ch += 2;
                     if (ch > 'Z') {
                         ch = 'A';
@@ -330,7 +371,7 @@ public class RegisterPage extends AppCompatActivity {
                 }
                 cryptpass+=ch;
             }
-            else if(Character.isDigit(password.charAt(i))) {
+            else if(isDigit(password.charAt(i))) {
                 num=password.charAt(i)-'0';
                 if (num < 8)
                     num+=2;
@@ -511,12 +552,15 @@ public class RegisterPage extends AppCompatActivity {
         int Month=Integer.parseInt(PartsOfDate[1]);
         int Year=Integer.parseInt(PartsOfDate[2]);
         int Age=today.get(Calendar.YEAR) - Year;//get the age of the user if today is is birthday
-        if(currentMonth+1<Month){
-            Age--;//if birthday month is lower then today's month
+
+        if (!(currentMonth+1>Month)) {
+            if (currentMonth + 1 < Month) {
+                Age--;//if birthday month is lower then today's month
+            } else if (currentDay < Day) {
+                Age--;//if birthday day is lower then today's day
+            }
         }
-        else if(currentDay<Day){
-            Age--;//if birthday day is lower then today's day
-        }
+
 
         return Age;
     }
