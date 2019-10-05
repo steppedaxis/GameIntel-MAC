@@ -35,6 +35,16 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
+        <android.support.v4.widget.Space
+            android:layout_width="8dp"
+            android:layout_height="1dp" />
+
+
+
+        <android.support.v4.widget.Space
+            android:layout_width="8dp"
+            android:layout_height="10dp" />
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/user_image"
             android:layout_width="96dp"
@@ -44,6 +54,22 @@
             app:civ_border_color="#FF000000"
             app:civ_border_width="2dp"
             tools:srcCompat="@tools:sample/avatars[0]" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="8dp"
+            android:layout_height="10dp" />
+
+        <ImageView
+            android:id="@+id/line10"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:src="@drawable/linebetter"
+            app:srcCompat="@drawable/linebetter" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="8dp"
+            android:layout_height="10dp" />
 
         <EditText
             android:id="@+id/registerUserName"
@@ -55,6 +81,12 @@
             android:textColor="@color/common_google_signin_btn_text_dark_default"
             android:textColorHint="@color/common_google_signin_btn_text_dark_default" />
 
+        <android.support.v4.widget.Space
+            android:layout_width="8dp"
+            android:layout_height="10dp" />
+
+
+
         <EditText
             android:id="@+id/registerName"
             android:layout_width="match_parent"
@@ -65,6 +97,10 @@
             android:textColor="@color/common_google_signin_btn_text_dark_default"
             android:textColorHint="@color/common_google_signin_btn_text_dark_default" />
 
+        <android.support.v4.widget.Space
+            android:layout_width="8dp"
+            android:layout_height="10dp" />
+
         <EditText
             android:id="@+id/registerPassword"
             android:layout_width="match_parent"
@@ -74,6 +110,10 @@
             android:inputType="textPassword"
             android:textColor="@color/common_google_signin_btn_text_dark_default"
             android:textColorHint="@color/common_google_signin_btn_text_dark_default" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="8dp"
+            android:layout_height="10dp" />
 
         <EditText
             android:id="@+id/registerEmail"
@@ -88,8 +128,12 @@
         <Button
             android:id="@+id/registerDateButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/regiserSetDateButton" />
+            android:layout_height="42dp"
+            android:background="@drawable/buttonshape"
+            android:text="@string/regiserSetDateButton"
+            android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
+
 
         <TextView
             android:id="@+id/registerBirthDate"
@@ -97,7 +141,7 @@
             android:layout_height="77dp"
             android:ems="10"
             android:gravity="center_horizontal|center_vertical"
-            android:hint="@string/registerBirthDate"
+            android:hint="Your Birth Date"
             android:inputType="text"
             android:textAllCaps="true"
             android:textColor="@color/common_google_signin_btn_text_dark_default"
@@ -111,7 +155,8 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/buttonshape"
             android:onClick="submitButton"
-            android:text="@string/submitButton" />
+            android:text="@string/submitButton"
+            android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
     </LinearLayout>
 

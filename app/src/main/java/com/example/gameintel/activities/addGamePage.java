@@ -33,10 +33,16 @@ import android.widget.Toast;
 import com.example.gameintel.R;
 import com.example.gameintel.classes.Game;
 import com.example.gameintel.classes.User;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.common.reflect.TypeToken;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -133,7 +139,7 @@ public class addGamePage extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                 //image upload is successfully done
-                //we can now get the image full download url
+                // can now get the image full download url
 
                 imageFilePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
@@ -142,25 +148,64 @@ public class addGamePage extends AppCompatActivity {
                         image=uri.toString();
 
                         //**************INPUT FIELDS STRINGS*******************//
-                        String game_name=name.getText().toString();
-                        String game_search=name.getText().toString().toLowerCase();
-                        String game_developer=developer.getText().toString();
-                        String game_publisher=publisher.getText().toString();
-                        String game_description=description.getText().toString();
-                        String game_series=series.getText().toString();
-                        int game_age=Integer.parseInt(age.getText().toString());
-                        String game_trailer_url=trailerURL.getText().toString();
-                        List<String> geners = loadList("genre");
-                        List<String> platforms=loadList("platformslist");
+                        final String game_name=name.getText().toString();
+                        final String game_search=name.getText().toString().toLowerCase();
+                        final String game_developer=developer.getText().toString();
+                        final String game_publisher=publisher.getText().toString();
+                        final String game_description=description.getText().toString();
+                        final String game_series=series.getText().toString();
+                        final int game_age=Integer.parseInt(age.getText().toString());
+                        final String game_trailer_url=trailerURL.getText().toString();
+                        final List<String> geners = loadList("genre");
+                        final List<String> platforms=loadList("platformslist");
 
 
-                        //Game gameDetailes=new Game(game_name,game_search,geners,game_developer,game_publisher,game_description,release_date_btn.getText().toString(),
-                                //game_series,platforms,image,game_age);
-
-                        Game gameinfo=new Game(game_name,game_search,geners,game_developer,game_publisher,game_description,release_date_btn.getText().toString(),game_series,platforms,image,game_age,game_trailer_url);
 
 
-                        database.collection("Games").document().set(gameinfo);
+
+
+                        CollectionReference gameRef = database.collection("Games");
+                        //Query query = gameRef.whereEqualTo("name", game_name);
+                        Query query = gameRef.orderBy("name").startAt(game_name.toUpperCase()).endAt(game_name.toLowerCase()+"\uf8ff");
+                        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if(task.isSuccessful()){
+                                    for(DocumentSnapshot documentSnapshot : task.getResult()){
+                                        String dataBaseGameName = documentSnapshot.getString("name").toLowerCase();
+
+                                        if(dataBaseGameName.toLowerCase().equals(game_name.toLowerCase())){
+                                            //name.setError("game already in database");
+                                            showErrorDialog("game already in database");
+                                            return;
+
+                                        }
+                                    }
+                                }
+
+                                if(task.getResult().size() == 0 ){
+                                    Game gameinfo=new Game(game_name,game_search,geners,game_developer,game_publisher,game_description,release_date_btn.getText().toString(),game_series,platforms,image,game_age,game_trailer_url);
+                                    database.collection("Games").document().set(gameinfo);
+                                    Intent intent=new Intent(addGamePage.this,GameList.class);
+                                    startActivity(intent);
+                                    finish();
+
+                                }
+                            }
+                        });
+
+
+
+
+
+
+
+
+                        //Game gameinfo=new Game(game_name,game_search,geners,game_developer,game_publisher,game_description,release_date_btn.getText().toString(),game_series,platforms,image,game_age,game_trailer_url);
+
+
+
+                        //database.collection("Games").document().set(gameinfo);
 
                         
 
@@ -173,9 +218,7 @@ public class addGamePage extends AppCompatActivity {
             }
         });
 
-        Intent intent=new Intent(this,GameList.class);
-        startActivity(intent);
-        finish();
+
 
     }
 
@@ -252,7 +295,7 @@ public class addGamePage extends AppCompatActivity {
 
 
 
-    public void selet_Genres(View view) {
+    public void select_Genres(View view) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choose genres");
 
@@ -405,6 +448,15 @@ public class addGamePage extends AppCompatActivity {
         Type type = new TypeToken<ArrayList<String>>() {}.getType();
 
         return gson.fromJson(json, type);
+    }
+
+
+    private void showErrorDialog(String messege) {
+        new android.support.v7.app.AlertDialog.Builder(this)
+                .setTitle("Error")
+                .setMessage(messege)
+                .setPositiveButton("OK",null)
+                .show();
     }
 
 

@@ -211,6 +211,10 @@
                 android:textColor="@color/common_google_signin_btn_text_dark_default"
                 tools:text="Log Out" />
 
+            <android.support.v4.widget.Space
+                android:layout_width="8dp"
+                android:layout_height="10dp" />
+
         </LinearLayout>
     </ScrollView>
 

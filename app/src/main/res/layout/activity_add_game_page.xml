@@ -93,7 +93,7 @@
 
         <EditText
             android:id="@+id/add_game_trailerURL"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Enter Trailer URL From YouTube (Browser Only!)"
@@ -104,32 +104,52 @@
         <Button
             android:id="@+id/add_game_release_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="42dp"
+            android:background="@drawable/buttonshape"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="ENTER RELEASE DATE" />
+            android:text="ENTER RELEASE DATE"
+            android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="8dp"
+            android:layout_height="10dp" />
 
         <Button
             android:id="@+id/geners_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="selet_Genres"
-            android:text="select geners" />
+            android:layout_height="42dp"
+            android:background="@drawable/buttonshape"
+            android:onClick="select_Genres"
+            android:text="select geners"
+            android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="8dp"
+            android:layout_height="10dp" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="42dp"
             android:layout_weight="1"
+            android:background="@drawable/buttonshape"
             android:onClick="platforms_select"
-            android:text="select Platforms" />
+            android:text="select Platforms"
+            android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="8dp"
+            android:layout_height="10dp" />
 
         <Button
             android:id="@+id/add_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="42dp"
+            android:background="@drawable/buttonshape"
             android:onClick="addGameButton"
-            android:text="done" />
+            android:text="done"
+            android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
     </LinearLayout>
 </ScrollView>
