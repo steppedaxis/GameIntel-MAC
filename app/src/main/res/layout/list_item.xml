@@ -111,6 +111,20 @@
         app:layout_constraintStart_toEndOf="@+id/gameImage"
         app:layout_constraintTop_toBottomOf="@+id/gamePublisher" />
 
+    <Button
+        android:id="@+id/favoritebutton"
+        android:layout_width="76dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="177dp"
+        android:layout_marginLeft="177dp"
+        android:layout_marginTop="4dp"
+        android:text="favorite"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.238"
+        app:layout_constraintStart_toEndOf="@+id/gameImage"
+        app:layout_constraintTop_toBottomOf="@+id/gamePublisher" />
 
 
 </android.support.constraint.ConstraintLayout>

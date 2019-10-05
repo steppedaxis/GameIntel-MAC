@@ -56,17 +56,17 @@ public class GameAdapter extends FirestoreRecyclerAdapter<Game, GameAdapter.Game
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful()){
-                        String title=model.getName();
                         for (DocumentSnapshot document:task.getResult()){
                             FirebaseUser currenrtUser=mAuth.getCurrentUser();
+                            List<String> favoritelist=(List<String>) document.get("favoriteGames");
 
                             if(document.getId().equals(currenrtUser.getUid())){
-                                List<String> favoritelist=(List<String>) document.get("favoriteGames");
+                                String title=model.getName();
                                 for (String favorite:favoritelist){
                                     if (favorite.equals(title)){
                                         holder.unfavoritebutton.setVisibility(View.VISIBLE);
-                                    }else{
-                                        holder.unfavoritebutton.setVisibility(View.GONE);
+                                        holder.favoritebutton.setVisibility(View.GONE);
+
                                     }
                                 }
                             }
@@ -102,6 +102,8 @@ public class GameAdapter extends FirestoreRecyclerAdapter<Game, GameAdapter.Game
        ImageButton favoriteIcon;
        ImageButton unfavoriteIcon;
        Button unfavoritebutton;
+       Button favoritebutton;
+
 
 
         public GameHolder(@NonNull View itemView) {
@@ -112,6 +114,8 @@ public class GameAdapter extends FirestoreRecyclerAdapter<Game, GameAdapter.Game
             favoriteIcon=itemView.findViewById(R.id.favorite);
             unfavoriteIcon=itemView.findViewById(R.id.unfavorite);
             unfavoritebutton=itemView.findViewById(R.id.unfavoritebutton);
+            favoritebutton=itemView.findViewById(R.id.favoritebutton);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -124,13 +128,26 @@ public class GameAdapter extends FirestoreRecyclerAdapter<Game, GameAdapter.Game
                 }
             });
 
-            favoriteIcon.setOnClickListener(new View.OnClickListener() {
+            favoritebutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String name=mTitleView.getText().toString();
-                    addToFavorites(name);
+                    String title=mTitleView.getText().toString();
+                    addToFavorites(title);
+                    favoritebutton.setVisibility(View.GONE);
+                    unfavoritebutton.setVisibility(View.VISIBLE);
                 }
             });
+
+            unfavoritebutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String title=mTitleView.getText().toString();
+                    removeFromFavorites(title);
+                    unfavoritebutton.setVisibility(View.GONE);
+                    favoritebutton.setVisibility(View.VISIBLE);
+                }
+            });
+
 
 
 
