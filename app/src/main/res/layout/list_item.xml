@@ -78,7 +78,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.904"
-        app:layout_constraintStart_toEndOf="@+id/gameImage" />
+        app:layout_constraintStart_toEndOf="@+id/gameImage"
+        app:layout_constraintTop_toTopOf="@+id/gamePublisher" />
 
     <Button
         android:id="@+id/favoritebutton"
@@ -92,7 +93,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.857"
-        app:layout_constraintStart_toEndOf="@+id/gameImage" />
+        app:layout_constraintStart_toEndOf="@+id/gameImage"
+        app:layout_constraintTop_toTopOf="@+id/gamePublisher" />
 
 
 </android.support.constraint.ConstraintLayout>
