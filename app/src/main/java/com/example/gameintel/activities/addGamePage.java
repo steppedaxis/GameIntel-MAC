@@ -162,21 +162,18 @@ public class addGamePage extends AppCompatActivity {
 
 
 
-
-
                         CollectionReference gameRef = database.collection("Games");
-                        //Query query = gameRef.whereEqualTo("name", game_name);
-                        Query query = gameRef.orderBy("name").startAt(game_name.toUpperCase()).endAt(game_name.toLowerCase()+"\uf8ff");
+                        Query query = gameRef.whereEqualTo("search_text", game_name.toLowerCase());
                         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if(task.isSuccessful()){
                                     for(DocumentSnapshot documentSnapshot : task.getResult()){
-                                        String dataBaseGameName = documentSnapshot.getString("name").toLowerCase();
+                                        String dataBaseGameName = documentSnapshot.getString("search_text");
 
-                                        if(dataBaseGameName.toLowerCase().equals(game_name.toLowerCase())){
+                                        if(dataBaseGameName.equals(game_name.toLowerCase())){
                                             //name.setError("game already in database");
-                                            showErrorDialog("game already in database");
+                                            showErrorDialog("game already exists in database");
                                             return;
 
                                         }
@@ -193,10 +190,6 @@ public class addGamePage extends AppCompatActivity {
                                 }
                             }
                         });
-
-
-
-
 
 
 
